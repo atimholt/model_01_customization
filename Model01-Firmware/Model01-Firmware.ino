@@ -26,7 +26,7 @@
 #include "Kaleidoscope-LEDControl.h"
 
 // Support for "Numpad" mode, which is mostly just the Numpad specific LED mode
-#include "Kaleidoscope-NumPad.h"
+//#include "Kaleidoscope-NumPad.h"
 
 // Support for an "LED off mode"
 #include "LED-Off.h"
@@ -121,7 +121,7 @@ enum { MACRO_VERSION_INFO,
   *
   */
 
-enum { DVORAK, NUMPAD, FUNCTION }; // layers
+enum { DVORAK, FUNCTION, FUNCTION_2 }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -133,47 +133,48 @@ KEYMAPS(
   [DVORAK] = KEYMAP_STACKED
   (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
-   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
+   Key_Home,     Key_A,         Key_O,     Key_E,      Key_U, Key_I,
+   Key_End,      Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
+   Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    ShiftToLayer(FUNCTION),
 
-   M(MACRO_ANY),   Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(NUMPAD),
-   Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                   Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
-   Key_RightShift, Key_LeftAlt, Key_Spacebar, Key_RightControl,
-   ShiftToLayer(FUNCTION)),
+   Consumer_PlaySlashPause, Key_6, Key_7, Key_8, Key_9, Key_0, XXX,
+   Key_Enter,               Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
+                            Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
+   Key_CapsLock,            Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
+   Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
+   ShiftToLayer(FUNCTION_2)),
 
 
-  [NUMPAD] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
-
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, ___,
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         ___,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   ___, ___, ___, ___,
-   ___),
-
-  [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
-   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+  [FUNCTION] = KEYMAP_STACKED
+  (___,           Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
+   Key_Tab,       XXX, Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_PageUp,    XXX, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseWarpNW,
+   Key_PageDown,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
    ___,
 
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
-   ___, ___, Key_Enter, ___,
+   Consumer_Mute, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+   Consumer_VolumeIncrement,    Key_LeftBracket, Key_Keypad7,     Key_Keypad8,    Key_Keypad9, Key_RightBracket, Key_F12,
+                               Key_LeftCurlyBracket,          Key_Keypad4,            Key_Keypad5,              Key_Keypad6,  Key_RightCurlyBracket, Key_Backslash,
+   Consumer_VolumeDecrement, Key_KeypadNumLock, Key_Keypad1, Key_Keypad2, Key_Keypad3,             XXX,    Key_Pipe,
+   ___, ___, Key_Keypad0, ___,
+   ___),
+
+
+  [FUNCTION_2] = KEYMAP_STACKED
+  (___,           Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
+   Key_Tab,       XXX, Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_PageUp,    XXX, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseWarpNW,
+   Key_PageDown,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+   ___, Key_Delete, ___, ___,
+   ___,
+
+   Consumer_Mute, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+   Consumer_ScanNextTrack,    Key_LeftBracket, Key_Keypad7,     Key_Keypad8,    Key_Keypad9, Key_RightBracket, Key_F12,
+                               Key_KeypadLeftParen,          Key_Keypad4,            Key_Keypad5,              Key_Keypad6,  Key_KeypadRightParen, Key_Backslash,
+   Consumer_ScanPreviousTrack, Key_KeypadNumLock, Key_Keypad1, Key_Keypad2, Key_Keypad3,             XXX,    Key_Pipe,
+   ___, ___, Key_Keypad0, ___,
    ___)
 
 	) // KEYMAPS(
@@ -331,7 +332,7 @@ void setup() {
 
     // The numpad plugin is responsible for lighting up the 'numpad' mode
     // with a custom LED effect
-    &NumPad,
+    //&NumPad,
 
     // The macros plugin adds support for macros
     &Macros,
@@ -346,7 +347,7 @@ void setup() {
 
   // While we hope to improve this in the future, the NumPad plugin
   // needs to be explicitly told which keymap layer is your numpad layer
-  NumPad.numPadLayer = NUMPAD;
+  // NumPad.numPadLayer = NUMPAD;
 
   // We configure the AlphaSquare effect to use RED letters
   AlphaSquare.color = CRGB(255, 0, 0);

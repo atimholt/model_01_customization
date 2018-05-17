@@ -147,33 +147,33 @@ KEYMAPS(
 
 
   [FUNCTION] = KEYMAP_STACKED
-  (___,           Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
-   Key_Tab,       XXX, Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_PageUp,    XXX, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseWarpNW,
-   Key_PageDown,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+  (___,          Key_F1,          Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
+   Key_Tab,      XXX,             Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_PageUp,   XXX,             Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
+   Key_PageDown, Key_PrintScreen, Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
    ___,
 
-   Consumer_Mute, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_VolumeIncrement,    Key_LeftBracket, Key_Keypad7,     Key_Keypad8,    Key_Keypad9, Key_RightBracket, Key_F12,
-                               Key_LeftCurlyBracket,          Key_Keypad4,            Key_Keypad5,              Key_Keypad6,  Key_RightCurlyBracket, Key_Backslash,
-   Consumer_VolumeDecrement, Key_KeypadNumLock, Key_Keypad1, Key_Keypad2, Key_Keypad3,             XXX,    Key_Pipe,
+   Consumer_Mute,            Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
+   Consumer_VolumeIncrement, Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
+                             Key_LeftCurlyBracket, Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_RightCurlyBracket, Key_Backslash,
+   Consumer_VolumeDecrement, Key_KeypadNumLock,    Key_Keypad1, Key_Keypad2, Key_Keypad3, XXX,                   Key_Pipe,
    ___, ___, Key_Keypad0, ___,
    ___),
 
 
   [FUNCTION_2] = KEYMAP_STACKED
-  (___,           Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
-   Key_Tab,       XXX, Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_PageUp,    XXX, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseWarpNW,
-   Key_PageDown,  Key_PrintScreen,  Key_Insert,  XXX,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+  (___,          Key_F1,          Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
+   Key_Tab,      XXX,             Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_PageUp,   XXX,             Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
+   Key_PageDown, Key_PrintScreen, Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
    ___,
 
-   Consumer_Mute, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_ScanNextTrack,    Key_LeftBracket, Key_Keypad7,     Key_Keypad8,    Key_Keypad9, Key_RightBracket, Key_F12,
-                               Key_KeypadLeftParen,          Key_Keypad4,            Key_Keypad5,              Key_Keypad6,  Key_KeypadRightParen, Key_Backslash,
-   Consumer_ScanPreviousTrack, Key_KeypadNumLock, Key_Keypad1, Key_Keypad2, Key_Keypad3,             XXX,    Key_Pipe,
+   Consumer_Mute,              Key_F6,              Key_F7,      Key_F8,      Key_F9,      Key_F10,              Key_F11,
+   Consumer_ScanNextTrack,     Key_LeftBracket,     Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,     Key_F12,
+                               Key_KeypadLeftParen, Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_KeypadRightParen, Key_Backslash,
+   Consumer_ScanPreviousTrack, Key_KeypadNumLock,   Key_Keypad1, Key_Keypad2, Key_Keypad3, XXX,                  Key_Pipe,
    ___, ___, Key_Keypad0, ___,
    ___)
 

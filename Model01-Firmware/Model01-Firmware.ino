@@ -162,6 +162,7 @@ KEYMAPS(
    ___),
 
 
+  // This layout is almost identical to FUNCTION, but there are differences.
   [FUNCTION_2] = KEYMAP_STACKED
   (___,          Key_F1,          Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
    Key_Tab,      XXX,             Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,

@@ -247,7 +247,7 @@ KEYMAPS(
    XXX, XXX, XXX, XXX,
    XXX,
 
-   XXX, XXX, XXX, XXX, XXX, LockLayer(QWERTY), LockLayer(QWERTY),
+   XXX, XXX, XXX, XXX, XXX, LockLayer(QWERTY), LockLayer(NUMPAD),
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,

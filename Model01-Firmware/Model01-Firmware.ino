@@ -75,8 +75,8 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MODE_1, MODE_2, MODE_3, MODE_4, MODE_5,
-       MODE_6, MODE_7, MODE_8, MODE_9, MODE_10,
+       MACRO_MODE_1, MACRO_MODE_2, MACRO_MODE_3, MACRO_MODE_4, MACRO_MODE_5,
+       MACRO_MODE_6, MACRO_MODE_7, MACRO_MODE_8, MACRO_MODE_9, MACRO_MODE_10,
        SWITCHER_BUTTON,
        L_FUNCTION, R_FUNCTION // For complementary function layers based on each other
      };
@@ -232,14 +232,14 @@ KEYMAPS(
 
 
   [SWITCHER] =  KEYMAP_STACKED
-  (___, M(MODE_1), M(MODE_2), M(MODE_3), M(MODE_4), M(MODE_5), XXX,
+  (___, M(MACRO_MODE_1), M(MACRO_MODE_2), M(MACRO_MODE_3), M(MACRO_MODE_4), M(MACRO_MODE_5), XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX,
    XXX,
 
-   XXX, M(MODE_6), M(MODE_7), M(MODE_8), M(MODE_9), M(MODE_10), M(SWITCHER_BUTTON),
+   XXX, M(MACRO_MODE_6), M(MACRO_MODE_7), M(MACRO_MODE_8), M(MACRO_MODE_9), M(MACRO_MODE_10), M(SWITCHER_BUTTON),
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
@@ -250,6 +250,8 @@ KEYMAPS(
 
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
+
+const uint8_t DefinedLayersCount PROGMEM = sizeof(keymaps) / sizeof(*keymaps);
 
 /** versionInfoMacro handles the 'firmware version info' macro
  *  When a key bound to the macro is pressed, this macro
@@ -280,23 +282,45 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
-#define MODE_DVORAK MODE_1
-#define MODE_GAMING MODE_2
-#define MODE_QWERTY MODE_10
+#define NO_LAYER (0xFF)
+
+const uint8_t MODE_DVORAK[] PROGMEM = {DVORAK, NO_LAYER};
+// const uint8_t MODE_DVORAK_VM[] PROGMEM = {DVORAK, CRAZY_NUMBERS, NO_LAYER}; // Not yet implemented
+// const uint8_t MODE_GAMING[] PROGMEM = {GAMING, NO_LAYER}; // Not yet implemented
+const uint8_t MODE_QWERTY[] PROGMEM = {QWERTY, NO_LAYER};
+
+#define MACRO_MODE_DVORAK MACRO_MODE_1
+#define MACRO_MODE_GAMING MACRO_MODE_2
+#define MACRO_MODE_QWERTY MACRO_MODE_10
 static void modeSwitch(uint8_t macroIndex, uint8_t keyState) {
   /*static const PROGMEM = {}*/
   if (!keyToggledOn(keyState)) return;
 
+  static uint8_t const* which;
+  which = nullptr;
   switch (macroIndex) {
-    case MODE_DVORAK:
-      Layer.off(QWERTY);
-      Layer.on(DVORAK);
-      Layer.off (SWITCHER);
+    case MACRO_MODE_DVORAK:
+      which = &MODE_DVORAK[0];
       break;
-    case MODE_GAMING:
+    case MACRO_MODE_GAMING:
       break;
-    case MODE_QWERTY:
+    case MACRO_MODE_QWERTY:
+      which = &MODE_QWERTY[0];
       break;
+  }
+  if (which) {
+    uint8_t next_on_layer_i = 0;
+    if (which[next_on_layer_i] == 0) ++next_on_layer_i; // default layer never turned off, anyway.
+    for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
+      if (i == which[next_on_layer_i]) {
+        Layer.on(i);
+        ++next_on_layer_i;
+      }
+      else {
+        Layer.off(i);
+        // This includes the SWITCHER layer, as a bonus! :D
+      }
+    }
   }
 }
 
@@ -329,7 +353,7 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     break;
 
   default:
-    if (macroIndex >= MODE_1 && macroIndex <= MODE_10) {
+    if (macroIndex >= MACRO_MODE_1 && macroIndex <= MACRO_MODE_10) {
       modeSwitch(macroIndex, keyState);
     }
   }

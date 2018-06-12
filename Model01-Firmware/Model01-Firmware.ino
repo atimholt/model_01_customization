@@ -78,7 +78,7 @@ enum { MACRO_VERSION_INFO,
        MACRO_MODE_1, MACRO_MODE_2, MACRO_MODE_3, MACRO_MODE_4, MACRO_MODE_5,
        MACRO_MODE_6, MACRO_MODE_7, MACRO_MODE_8, MACRO_MODE_9, MACRO_MODE_10,
        SWITCHER_BUTTON,
-       L_FUNCTION, R_FUNCTION // For complementary function layers based on each other
+       MACRO_R_FUNCTION // For complementary function layers based on each other
      };
 
 
@@ -142,14 +142,14 @@ KEYMAPS(
    Key_Home,     Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_End,      Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
-   M(L_FUNCTION),
+   ShiftToLayer(MY_FUNCTION_L),
 
    Consumer_PlaySlashPause, Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(SWITCHER),
    Key_Enter,               Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                             Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    Key_CapsLock,            Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
    Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
-   M(R_FUNCTION)),
+   M(MACRO_R_FUNCTION)),
 
   [QWERTY] = KEYMAP_STACKED
   (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
@@ -350,6 +350,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case SWITCHER_BUTTON:
     // TODO  different behavior for different modes
+    break;
+
+  case MACRO_R_FUNCTION:
+    ShiftToLayer(MY_FUNCTION_L);
+    ShiftToLayer(MY_FUNCTION_R);
     break;
 
   default:

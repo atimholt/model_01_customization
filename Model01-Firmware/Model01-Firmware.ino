@@ -353,8 +353,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     break;
 
   case MACRO_R_FUNCTION:
-    ShiftToLayer(MY_FUNCTION_L);
-    ShiftToLayer(MY_FUNCTION_R);
+    if (keyIsPressed(keyState)) {
+      return MACRO(Dr(ShiftToLayer(MY_FUNCTION_L)), Dr(ShiftToLayer(MY_FUNCTION_R)));
+    } else {
+      return MACRO(Ur(ShiftToLayer(MY_FUNCTION_L)), Ur(ShiftToLayer(MY_FUNCTION_R)));
+    }
     break;
 
   default:

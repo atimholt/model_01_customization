@@ -180,7 +180,7 @@ KEYMAPS(
                              Key_LeftCurlyBracket, Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_RightCurlyBracket, Key_Backslash,
    Consumer_VolumeDecrement, Key_KeypadNumLock,    Key_Keypad1, Key_Keypad2, Key_Keypad3, XXX,                   Key_Pipe,
    ___, ___, Key_Keypad0, ___,
-   ___),
+   XXX),
 
 
   // Only used with MY_FUNCTION_L
@@ -190,7 +190,7 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
-   ___,
+   XXX,
 
    ___,                        ___,                 ___, ___, ___, ___,                  ___,
    Consumer_ScanNextTrack,     ___,                 ___, ___, ___, ___,                  ___,

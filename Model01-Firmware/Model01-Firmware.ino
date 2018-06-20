@@ -282,13 +282,6 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
-#define NO_LAYER (0xFF)
-
-const uint8_t MODE_DVORAK[] PROGMEM = {DVORAK, NO_LAYER};
-// const uint8_t MODE_DVORAK_VM[] PROGMEM = {DVORAK, CRAZY_NUMBERS, NO_LAYER}; // Not yet implemented
-// const uint8_t MODE_GAMING[] PROGMEM = {GAMING, NO_LAYER}; // Not yet implemented
-const uint8_t MODE_QWERTY[] PROGMEM = {QWERTY, NO_LAYER};
-
 #define MACRO_MODE_DVORAK MACRO_MODE_1
 #define MACRO_MODE_GAMING MACRO_MODE_2
 #define MACRO_MODE_QWERTY MACRO_MODE_10
@@ -296,31 +289,18 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState) {
   /*static const PROGMEM = {}*/
   if (!keyToggledOn(keyState)) return;
 
-  static uint8_t const* which;
-  which = nullptr;
+  for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
+    Layer.off(i);
+  }
   switch (macroIndex) {
     case MACRO_MODE_DVORAK:
-      which = &MODE_DVORAK[0];
+      Layer.on(DVORAK); // already/still on, but whatever.
       break;
     case MACRO_MODE_GAMING:
       break;
     case MACRO_MODE_QWERTY:
-      which = &MODE_QWERTY[0];
+      Layer.on(QWERTY);
       break;
-  }
-  if (which) {
-    uint8_t next_on_layer_i = 0;
-    if (which[next_on_layer_i] == 0) ++next_on_layer_i; // default layer never turned off, anyway.
-    for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
-      if (i == which[next_on_layer_i]) {
-        Layer.on(i);
-        ++next_on_layer_i;
-      }
-      else {
-        Layer.off(i);
-        // This includes the SWITCHER layer, as a bonus! :D
-      }
-    }
   }
 }
 

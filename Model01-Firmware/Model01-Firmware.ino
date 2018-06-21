@@ -282,6 +282,13 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
+static void clearLayers() {
+  // Layer 0 is never turned off!
+  for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
+    Layer.off(i);
+  }
+}
+
 #define MACRO_MODE_DVORAK MACRO_MODE_1
 #define MACRO_MODE_GAMING MACRO_MODE_2
 #define MACRO_MODE_QWERTY MACRO_MODE_10
@@ -289,9 +296,7 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState) {
   /*static const PROGMEM = {}*/
   if (!keyToggledOn(keyState)) return;
 
-  for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
-    Layer.off(i);
-  }
+  clearLayers();
   switch (macroIndex) {
     case MACRO_MODE_DVORAK:
       Layer.on(DVORAK); // already/still on, but whatever.
@@ -329,7 +334,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     break;
 
   case SWITCHER_BUTTON:
-    // TODO  different behavior for different modes
+    if (keyToggledOn(keyState) && Layer.isOn(QWERTY)) {
+      clearLayers();
+      Layer.on(QWERTY);
+      Layer.on(NUMPAD);
+    }
     break;
 
   case MACRO_R_FUNCTION:

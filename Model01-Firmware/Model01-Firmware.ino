@@ -192,10 +192,10 @@ KEYMAPS(
    ___, ___, ___, ___,
    XXX,
 
-   ___,                        ___,                 ___, ___, ___, ___,                  ___,
-   Consumer_ScanNextTrack,     ___,                 ___, ___, ___, ___,                  ___,
-                               Key_KeypadLeftParen, ___, ___, ___, Key_KeypadRightParen, ___,
-   Consumer_ScanPreviousTrack, ___,                 ___, ___, ___, ___,                  ___,
+   ___,                        ___,           ___, ___, ___, ___,           ___,
+   Consumer_ScanNextTrack,     ___,           ___, ___, ___, ___,           ___,
+                               LSHIFT(Key_9), ___, ___, ___, LSHIFT(Key_0), ___,
+   Consumer_ScanPreviousTrack, ___,           ___, ___, ___, ___,           ___,
    ___, ___, ___, ___,
    ___),
 

@@ -173,7 +173,7 @@ KEYMAPS(
    Key_PageUp,   XXX,             Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
    Key_PageDown, Key_PrintScreen, Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
-   ___,
+   XXX,
 
    Consumer_Mute,            Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
    Consumer_VolumeIncrement, Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
@@ -192,12 +192,12 @@ KEYMAPS(
    ___, ___, ___, ___,
    XXX,
 
-   ___,                        ___,           ___, ___, ___, ___,           ___,
-   Consumer_ScanNextTrack,     ___,           ___, ___, ___, ___,           ___,
-                               LSHIFT(Key_9), ___, ___, ___, LSHIFT(Key_0), ___,
-   Consumer_ScanPreviousTrack, ___,           ___, ___, ___, ___,           ___,
-   ___, ___, ___, ___,
-   ___),
+   ___,                        ___,           ___,           ___,           ___,            ___,           ___,
+   Consumer_ScanNextTrack,     ___,           Key_Home,      Key_UpArrow,   Key_PageUp,     ___,           ___,
+                               LSHIFT(Key_9), Key_LeftArrow, XXX,           Key_RightArrow, LSHIFT(Key_0), ___,
+   Consumer_ScanPreviousTrack, XXX,           Key_End,       Key_DownArrow, Key_PageDown,   ___,           ___,
+   ___, ___, Key_Spacebar, ___,
+   XXX),
 
 
   [FUNCTION] =  KEYMAP_STACKED

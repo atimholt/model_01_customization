@@ -75,6 +75,7 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
+       MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_RIGHT, MACRO_DESKTOP_LEFT,
        MACRO_MODE_1, MACRO_MODE_2, MACRO_MODE_3, MACRO_MODE_4, MACRO_MODE_5,
        MACRO_MODE_6, MACRO_MODE_7, MACRO_MODE_8, MACRO_MODE_9, MACRO_MODE_10,
        SWITCHER_BUTTON,
@@ -137,10 +138,10 @@ enum { DVORAK, QWERTY,
 KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
-  (___,          Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_Home,     Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_End,      Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
+  (___,               Key_1,         Key_2,     Key_3,      Key_4, Key_5, Key_LEDEffectNext,
+   Key_Backtick,      Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
+   M(MACRO_PREV_TAB), Key_A,         Key_O,     Key_E,      Key_U, Key_I,
+   M(MACRO_NEXT_TAB), Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    ShiftToLayer(MY_FUNCTION_L),
 
@@ -168,10 +169,10 @@ KEYMAPS(
 
 
   [MY_FUNCTION_L] = KEYMAP_STACKED
-  (___,          Key_F1,          Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
-   Key_Tab,      XXX,             Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_PageUp,   XXX,             Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
-   Key_PageDown, Key_PrintScreen, Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+  (___,                   Key_F1,                 Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
+   Key_Tab,               XXX,                    Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   M(MACRO_DESKTOP_LEFT), M(MACRO_DESKTOP_RIGHT), Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
+   XXX,                   Key_PrintScreen,        Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, Key_Delete, ___, ___,
    XXX,
 
@@ -331,6 +332,26 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
+    break;
+
+  case MACRO_NEXT_TAB:
+    if (keyToggledOn(keyState)) 
+      return MACRO(D(LeftControl), T(Tab), U(LeftControl));
+    break;
+
+  case MACRO_PREV_TAB:
+    if (keyToggledOn(keyState)) 
+      return MACRO(D(LeftControl), D(LeftShift), T(Tab), U(LeftShift), U(LeftControl));
+    break;
+
+  case MACRO_DESKTOP_LEFT:
+    if (keyToggledOn(keyState)) 
+      return MACRO(D(LeftGui), D(LeftControl), T(LeftArrow), U(LeftControl), U(LeftGui));
+    break;
+
+  case MACRO_DESKTOP_RIGHT:
+    if (keyToggledOn(keyState)) 
+      return MACRO(D(LeftGui), D(LeftControl), T(RightArrow), U(LeftControl), U(LeftGui));
     break;
 
   case SWITCHER_BUTTON:

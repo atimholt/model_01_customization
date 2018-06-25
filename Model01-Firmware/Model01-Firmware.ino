@@ -168,20 +168,19 @@ KEYMAPS(
 
 
   [MY_FUNCTION_L] = KEYMAP_STACKED
-  (___,                   Key_F1,                 Key_F2,        Key_F3,      Key_F4,        Key_F5,           XXX,
-   Key_Tab,               XXX,                    Key_mouseBtnR, Key_mouseUp, Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
-   M(MACRO_DESKTOP_LEFT), M(MACRO_DESKTOP_RIGHT), Key_mouseL,    Key_mouseDn, Key_mouseR,    Key_mouseWarpNW,
-   XXX,                   Key_PrintScreen,        Key_Insert,    XXX,         Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   ___, Key_Delete, ___, ___,
+  (___,                   Key_F1,                 Key_F2,        Key_F3,        Key_F4,        Key_F5,           XXX,
+   Key_Tab,               XXX,                    Key_mouseBtnR, Key_mouseUp,   Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   M(MACRO_DESKTOP_LEFT), M(MACRO_DESKTOP_RIGHT), Key_mouseL,    Key_mouseBtnM, Key_mouseR,    Key_mouseWarpNW,
+   XXX,                   Key_PrintScreen,        Key_Insert,    Key_mouseDn,   XXX,           Key_mouseWarpSW,  Key_mouseWarpSE,
+   ___, ___, ___, ___,
    XXX,
 
    Consumer_Mute,            Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
    Consumer_VolumeIncrement, Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
-                             Key_LeftCurlyBracket, Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_RightCurlyBracket, Key_Backslash,
-   Consumer_VolumeDecrement, Key_KeypadNumLock,    Key_Keypad1, Key_Keypad2, Key_Keypad3, XXX,                   Key_Pipe,
-   ___, ___, Key_Keypad0, ___,
+                             LSHIFT(Key_9),        Key_Keypad4, Key_Keypad5, Key_Keypad6, LSHIFT(Key_0),         Key_Backslash,
+   Consumer_VolumeDecrement, Key_LeftCurlyBracket, Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightCurlyBracket, Key_Pipe,
+   ___, Key_Spacebar, Key_Keypad0, ___,
    XXX),
-
 
   // Only used with MY_FUNCTION_L
   [MY_FUNCTION_R] = KEYMAP_STACKED
@@ -192,10 +191,10 @@ KEYMAPS(
    ___, ___, ___, ___,
    XXX,
 
-   ___,                        ___,           ___,           ___,           ___,            ___,           ___,
-   Consumer_ScanNextTrack,     ___,           Key_Home,      Key_UpArrow,   Key_PageUp,     ___,           ___,
-                               LSHIFT(Key_9), Key_LeftArrow, XXX,           Key_RightArrow, LSHIFT(Key_0), ___,
-   Consumer_ScanPreviousTrack, XXX,           Key_End,       Key_DownArrow, Key_PageDown,   ___,           ___,
+   Key_KeypadNumLock,          ___, ___,           ___,           ___,            ___, ___,
+   Consumer_ScanNextTrack,     ___, Key_Home,      Key_UpArrow,   Key_PageUp,     ___, ___,
+                               ___, Key_LeftArrow, Key_Delete,    Key_RightArrow, ___, ___,
+   Consumer_ScanPreviousTrack, ___, Key_End,       Key_DownArrow, Key_PageDown,   ___, ___,
    ___, ___, Key_Spacebar, ___,
    XXX),
 

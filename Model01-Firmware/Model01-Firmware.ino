@@ -75,9 +75,8 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_RIGHT, MACRO_DESKTOP_LEFT,
-       MACRO_MODE_1, MACRO_MODE_2, MACRO_MODE_3, MACRO_MODE_4, MACRO_MODE_5,
-       MACRO_MODE_6, MACRO_MODE_7, MACRO_MODE_8, MACRO_MODE_9, MACRO_MODE_10,
+       MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_LEFT, MACRO_DESKTOP_RIGHT,
+       MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_QWERTY,
        SWITCHER_BUTTON,
        MACRO_R_FUNCTION // For complementary function layers based on each other
      };
@@ -233,14 +232,14 @@ KEYMAPS(
 
 
   [SWITCHER] =  KEYMAP_STACKED
-  (___, M(MACRO_MODE_1), M(MACRO_MODE_2), M(MACRO_MODE_3), M(MACRO_MODE_4), M(MACRO_MODE_5), XXX,
+  (___, M(MACRO_MODE_DVORAK), M(MACRO_MODE_GAMING), XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX,
    XXX,
 
-   XXX, M(MACRO_MODE_6), M(MACRO_MODE_7), M(MACRO_MODE_8), M(MACRO_MODE_9), M(MACRO_MODE_10), M(SWITCHER_BUTTON),
+   XXX, XXX, XXX, XXX, XXX, M(MACRO_MODE_QWERTY), M(SWITCHER_BUTTON),
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
@@ -290,9 +289,6 @@ static void clearLayers() {
   }
 }
 
-#define MACRO_MODE_DVORAK MACRO_MODE_1
-#define MACRO_MODE_GAMING MACRO_MODE_2
-#define MACRO_MODE_QWERTY MACRO_MODE_10
 static void modeSwitch(uint8_t macroIndex, uint8_t keyState) {
   /*static const PROGMEM = {}*/
   if (!keyToggledOn(keyState)) return;
@@ -354,7 +350,14 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
       return MACRO(D(LeftGui), D(LeftControl), T(RightArrow), U(LeftControl), U(LeftGui));
     break;
 
+  case MACRO_MODE_DVORAK:
+  case MACRO_MODE_GAMING:
+  case MACRO_MODE_QWERTY:
+    modeSwitch(macroIndex, keyState);
+    break;
+
   case SWITCHER_BUTTON:
+    // TODO  make it more obvious that this is a mode thing, couple it together.
     if (keyToggledOn(keyState) && Layer.isOn(QWERTY)) {
       clearLayers();
       Layer.on(QWERTY);
@@ -365,15 +368,11 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   case MACRO_R_FUNCTION:
     if (keyIsPressed(keyState)) {
       return MACRO(Dr(ShiftToLayer(MY_FUNCTION_L)), Dr(ShiftToLayer(MY_FUNCTION_R)));
-    } else {
+    }
+    else {
       return MACRO(Ur(ShiftToLayer(MY_FUNCTION_L)), Ur(ShiftToLayer(MY_FUNCTION_R)));
     }
     break;
-
-  default:
-    if (macroIndex >= MACRO_MODE_1 && macroIndex <= MACRO_MODE_10) {
-      modeSwitch(macroIndex, keyState);
-    }
   }
   return MACRO_NONE;
 }

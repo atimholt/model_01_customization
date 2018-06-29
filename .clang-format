@@ -1,0 +1,88 @@
+
+DisableFormat: false
+Language: Cpp
+Standard: Cpp11
+SortIncludes: true
+
+# Whitespace sizes
+UseTab: Never
+IndentWidth: 2
+TabWidth: 2
+AccessModifierOffset: -1
+ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4
+ColumnLimit: 80
+
+# Comments
+ReflowComments: true
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 1
+# I don't think I actually have this doing anything effective right now.
+CommentPragmas: "^(│|▼|▲|└)"
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: false
+AlignOperands: true
+AlignAfterOpenBracket: DontAlign
+DerivePointerAlignment: false
+PointerAlignment: Left
+# Not an int, but AccessModifierOffset is?
+IndentCaseLabels: false
+NamespaceIndentation: None
+
+# What is this one?
+#SpaceAfterControlStatementKeyword: true
+SpaceAfterCStyleCast: false
+# Doesn't work
+#SpaceAfterTemplateKeyword: true
+SpacesInCStyleCastParentheses: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+#SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+Cpp11BracedListStyle: true
+
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 2
+BinPackArguments: true
+BinPackParameters: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterDefinitionReturnType: None
+IndentWrappedFunctionNames: false
+AlwaysBreakTemplateDeclarations: true
+BreakConstructorInitializersBeforeComma: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+# Choosing "All" does horrible things to the surrounding whitespace. :(
+AllowShortFunctionsOnASingleLine: None
+
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: false
+# Not working :/
+#BreakStringLiterals: true
+# Stroustrup is *almost* what I want.
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterClass: true
+    AfterEnum: true
+    AfterNamespace: false
+    AfterStruct: true
+    AfterUnion: true
+
+    BeforeCatch: true
+    BeforeElse: true
+    IndentBraces: false
+    AfterFunction: true
+    AfterControlStatement: false
+AlwaysBreakBeforeMultilineStrings: true
+
+# vim:set ft=yaml et ts=4 sts=4 sw=4:
+

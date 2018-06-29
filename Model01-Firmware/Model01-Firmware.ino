@@ -179,10 +179,10 @@ KEYMAPS(
    ___, ___, ___, ___,
    XXX,
 
-   Consumer_Mute,            Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
-   Consumer_VolumeIncrement, Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
-                             LSHIFT(Key_9),        Key_Keypad4, Key_Keypad5, Key_Keypad6, LSHIFT(Key_0),         Key_Backslash,
-   Consumer_VolumeDecrement, Key_LeftCurlyBracket, Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightCurlyBracket, Key_Pipe,
+   Key_KeypadNumLock,          Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
+   Consumer_ScanNextTrack,     Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
+                               LSHIFT(Key_9),        Key_Keypad4, Key_Keypad5, Key_Keypad6, LSHIFT(Key_0),         Key_Backslash,
+   Consumer_ScanPreviousTrack, Key_LeftCurlyBracket, Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightCurlyBracket, Key_Pipe,
    ___, Key_Spacebar, Key_Keypad0, ___,
    XXX),
 
@@ -195,10 +195,10 @@ KEYMAPS(
    ___, ___, ___, ___,
    XXX,
 
-   Key_KeypadNumLock,          ___, ___,           ___,           ___,            ___, ___,
-   Consumer_ScanNextTrack,     ___, Key_Home,      Key_UpArrow,   Key_PageUp,     ___, ___,
-                               ___, Key_LeftArrow, Key_Delete,    Key_RightArrow, ___, ___,
-   Consumer_ScanPreviousTrack, ___, Key_End,       Key_DownArrow, Key_PageDown,   ___, ___,
+   Consumer_Mute,            ___, ___,           ___,           ___,            ___, ___,
+   Consumer_VolumeIncrement, ___, Key_Home,      Key_UpArrow,   Key_PageUp,     ___, ___,
+                             ___, Key_LeftArrow, Key_Delete,    Key_RightArrow, ___, ___,
+   Consumer_VolumeDecrement, ___, Key_End,       Key_DownArrow, Key_PageDown,   ___, ___,
    ___, ___, Key_Spacebar, ___,
    XXX),
 

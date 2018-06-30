@@ -28,6 +28,10 @@
 
 // Non-core plugins, not in this repo:
 #include "Kaleidoscope-LED-Wavepool.h"
+#include "Kaleidoscope-LEDEffect-FunctionalColor.h"
+
+// Stuff plugins have asked for.
+kaleidoscope::LEDFunctionalColor::FCPlugin funColor;
 
 // clang-format off
 
@@ -332,6 +336,7 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     TestMode,
     LEDControl,
     LEDOff,
+    funColor,
     WavepoolEffect,
     LEDRainbowEffect,
     LEDRainbowWaveEffect,

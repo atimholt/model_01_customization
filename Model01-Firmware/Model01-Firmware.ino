@@ -19,13 +19,15 @@
 
 // Lighting plugins
 #include "Kaleidoscope-LED-Stalker.h"
-#include "Kaleidoscope-LED-Wavepool.h"
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
 #include "Kaleidoscope-LEDEffect-Breathe.h"
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "Kaleidoscope-NumPad.h"
 #include "LED-Off.h"
+
+// Non-core plugins, not in this repo:
+#include "Kaleidoscope-LED-Wavepool.h"
 
 // clang-format off
 

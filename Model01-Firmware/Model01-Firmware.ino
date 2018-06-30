@@ -27,8 +27,8 @@
 #include "LED-Off.h"
 
 // Non-core plugins, not in this repo:
-#include "Kaleidoscope-LED-Wavepool.h"
-#include "Kaleidoscope-LEDEffect-FunctionalColor.h"
+#include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
+#include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
 
 // Stuff plugins have asked for.
 kaleidoscope::LEDFunctionalColor::FCPlugin funColor;

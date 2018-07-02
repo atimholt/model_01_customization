@@ -31,7 +31,8 @@
 #include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
 
 // Stuff plugins have asked for.
-kaleidoscope::LEDFunctionalColor::FCPlugin funColor;
+using namespace kaleidoscope::LEDFunctionalColor;
+FCPlugin funColorFruit(240, Fruit);
 
 // clang-format off
 
@@ -338,7 +339,7 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     TestMode,
     LEDControl,
     LEDOff,
-    funColor,
+    funColorFruit,
     WavepoolEffect,
     LEDRainbowEffect,
     LEDRainbowWaveEffect,

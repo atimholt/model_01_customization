@@ -107,7 +107,7 @@ KEYMAPS(
    Consumer_VolumeIncrement, ___, Key_Home,      Key_UpArrow,   Key_PageUp,     ___, ___,
                              ___, Key_LeftArrow, Key_Delete,    Key_RightArrow, ___, ___,
    Consumer_VolumeDecrement, ___, Key_End,       Key_DownArrow, Key_PageDown,   ___, ___,
-   ___, ___, Key_Spacebar, ___,
+   ___, Key_RightShift, Key_Spacebar, ___,
    XXX),
 
 
@@ -171,12 +171,12 @@ struct MyColorMap : public colorMap
   // My own color constants, ensuring everything is in a consistent palette.
   static constexpr cRGB defaultColor            = dimgray;
   static constexpr cRGB baseColor               = lightgray;
-  // If shift, capslock, & numlock detection are ever implemented:
-  // static constexpr cRGB attentionBaseColor   = red;
   static constexpr cRGB secondaryColor          = teal;
   static constexpr cRGB attentionSecondaryColor = blue;
   static constexpr cRGB tertiaryColor           = orange;
   static constexpr cRGB attentionTertiaryColor  = yellow;
+  // If shift, capslock, & numlock detection are ever implemented:
+  // static constexpr cRGB attentionBaseColor   = red;
 
   // shift, control, gui, and alt can all be colored by "modifier" if nocolor is
   // set here.

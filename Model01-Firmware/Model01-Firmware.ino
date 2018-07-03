@@ -30,10 +30,6 @@
 #include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
 #include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
 
-// Stuff plugins have asked for.
-using namespace kaleidoscope::LEDFunctionalColor;
-FCPlugin funColorFruit(240, Fruit);
-
 // clang-format off
 
 // Macros (used in a switch statement & in mappings with M() macro.)
@@ -164,6 +160,58 @@ KEYMAPS(
 ) // KEYMAPS(
 
 // clang-format on
+
+// Stuff plugins have asked for.
+using namespace kaleidoscope::LEDFunctionalColor;
+
+FCPlugin myColorMap(200, false);
+
+struct MyColorMap : public colorMap
+{
+  static constexpr cRGB baseColor    = white;
+  static constexpr cRGB defaultColor = dim(baseColor, 200);
+
+  static constexpr cRGB shift    = nocolor;
+  static constexpr cRGB control  = nocolor;
+  static constexpr cRGB gui      = nocolor;
+  static constexpr cRGB alt      = nocolor;
+  static constexpr cRGB modifier = dim(baseColor, 200);
+
+  // F1-F12 and F13-F24
+  static constexpr cRGB function = dim(baseColor, 200);
+
+  // Page Up, Page Down, Home, End, Insert, and Delete (if del has nocolor)
+  static constexpr cRGB navigation = dim(baseColor, 200);
+
+  // Print Screen, Pause/Break, and Scroll Lock keys (brightness on Macs)
+  static constexpr cRGB system = dim(baseColor, 200);
+
+  static constexpr cRGB arrow  = dim(baseColor, 200);
+  static constexpr cRGB keypad = dim(baseColor, 200);
+
+  // Includes play/pause, next/prev, volume control, mute, etc.
+  static constexpr cRGB media = dim(baseColor, 200);
+
+  static constexpr cRGB mouseWheel  = nocolor;
+  static constexpr cRGB mouseButton = nocolor;
+  static constexpr cRGB mouseWarp   = nocolor;
+  static constexpr cRGB mouseMove   = nocolor;
+  // mouse includes the four above groups if nocolor is set for those
+  static constexpr cRGB mouse     = dim(baseColor, 200);
+  static constexpr cRGB space     = dim(baseColor, 200);
+  static constexpr cRGB tab       = dim(baseColor, 200);
+  static constexpr cRGB enter     = dim(baseColor, 200);
+  static constexpr cRGB backspace = dim(baseColor, 200);
+  static constexpr cRGB escape    = dim(baseColor, 200);
+  static constexpr cRGB del       = dim(baseColor, 200);
+
+  // fn will work properly if your FUNCTION layer is between layers 1-3
+  static constexpr cRGB fn = dim(baseColor, 200);
+
+  // NumLock and other layer locks
+  static constexpr cRGB lock          = dim(baseColor, 200);
+  static constexpr cRGB LEDEffectNext = dim(baseColor, 200);
+};
 
 const uint8_t DefinedLayersCount PROGMEM = sizeof(keymaps) / sizeof(*keymaps);
 
@@ -339,7 +387,7 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     TestMode,
     LEDControl,
     LEDOff,
-    funColorFruit,
+    myColorMap,
     WavepoolEffect,
     LEDRainbowEffect,
     LEDRainbowWaveEffect,
@@ -370,6 +418,8 @@ void setup()
   LEDRainbowWaveEffect.brightness(150);
 
   StalkerEffect.variant = STALKER(BlazingTrail);
+
+  FC_SET_THEME(myColorMap, MyColorMap);
 
   // We want to make sure that the firmware starts with LED effects off
   // This avoids over-taxing devices that don't have a lot of power to share

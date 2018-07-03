@@ -168,49 +168,62 @@ FCPlugin myColorMap(200, false);
 
 struct MyColorMap : public colorMap
 {
-  static constexpr cRGB baseColor    = white;
-  static constexpr cRGB defaultColor = dim(baseColor, 200);
+  // My own color constants, ensuring everything is in a consistent palette.
+  static constexpr cRGB defaultColor            = dimgray;
+  static constexpr cRGB baseColor               = lightgray;
+  // If shift, capslock, & numlock detection are ever implemented:
+  // static constexpr cRGB attentionBaseColor   = red;
+  static constexpr cRGB secondaryColor          = teal;
+  static constexpr cRGB attentionSecondaryColor = blue;
+  static constexpr cRGB tertiaryColor           = orange;
+  static constexpr cRGB attentionTertiaryColor  = yellow;
 
+  // shift, control, gui, and alt can all be colored by "modifier" if nocolor is
+  // set here.
   static constexpr cRGB shift    = nocolor;
   static constexpr cRGB control  = nocolor;
-  static constexpr cRGB gui      = nocolor;
+  static constexpr cRGB gui      = attentionTertiaryColor;
   static constexpr cRGB alt      = nocolor;
-  static constexpr cRGB modifier = dim(baseColor, 200);
+  static constexpr cRGB modifier = tertiaryColor;
+
+  static constexpr cRGB alpha       = baseColor;
+  static constexpr cRGB number      = secondaryColor;
+  static constexpr cRGB punctuation = tertiaryColor;
 
   // F1-F12 and F13-F24
-  static constexpr cRGB function = dim(baseColor, 200);
+  static constexpr cRGB function = attentionSecondaryColor;
 
   // Page Up, Page Down, Home, End, Insert, and Delete (if del has nocolor)
-  static constexpr cRGB navigation = dim(baseColor, 200);
+  static constexpr cRGB navigation = tertiaryColor;
 
   // Print Screen, Pause/Break, and Scroll Lock keys (brightness on Macs)
-  static constexpr cRGB system = dim(baseColor, 200);
+  static constexpr cRGB system = attentionTertiaryColor;
 
-  static constexpr cRGB arrow  = dim(baseColor, 200);
-  static constexpr cRGB keypad = dim(baseColor, 200);
+  static constexpr cRGB arrow  = secondaryColor;
+  static constexpr cRGB keypad = secondaryColor;
 
   // Includes play/pause, next/prev, volume control, mute, etc.
-  static constexpr cRGB media = dim(baseColor, 200);
+  static constexpr cRGB media = tertiaryColor;
 
   static constexpr cRGB mouseWheel  = nocolor;
-  static constexpr cRGB mouseButton = nocolor;
-  static constexpr cRGB mouseWarp   = nocolor;
+  static constexpr cRGB mouseButton = tertiaryColor;
+  static constexpr cRGB mouseWarp   = secondaryColor;
   static constexpr cRGB mouseMove   = nocolor;
   // mouse includes the four above groups if nocolor is set for those
-  static constexpr cRGB mouse     = dim(baseColor, 200);
-  static constexpr cRGB space     = dim(baseColor, 200);
-  static constexpr cRGB tab       = dim(baseColor, 200);
-  static constexpr cRGB enter     = dim(baseColor, 200);
-  static constexpr cRGB backspace = dim(baseColor, 200);
-  static constexpr cRGB escape    = dim(baseColor, 200);
-  static constexpr cRGB del       = dim(baseColor, 200);
+  static constexpr cRGB mouse     = baseColor;
+  static constexpr cRGB space     = baseColor;
+  static constexpr cRGB tab       = tertiaryColor;
+  static constexpr cRGB enter     = tertiaryColor;
+  static constexpr cRGB backspace = attentionTertiaryColor;
+  static constexpr cRGB escape    = attentionTertiaryColor;
+  static constexpr cRGB del       = attentionTertiaryColor;
 
   // fn will work properly if your FUNCTION layer is between layers 1-3
-  static constexpr cRGB fn = dim(baseColor, 200);
+  static constexpr cRGB fn = baseColor;
 
   // NumLock and other layer locks
-  static constexpr cRGB lock          = dim(baseColor, 200);
-  static constexpr cRGB LEDEffectNext = dim(baseColor, 200);
+  static constexpr cRGB lock          = attentionTertiaryColor;
+  static constexpr cRGB LEDEffectNext = tertiaryColor;
 };
 
 const uint8_t DefinedLayersCount PROGMEM = sizeof(keymaps) / sizeof(*keymaps);

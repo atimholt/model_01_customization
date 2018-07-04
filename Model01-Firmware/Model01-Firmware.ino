@@ -27,8 +27,13 @@
 #include "LED-Off.h"
 
 // Non-core plugins, not in this repo:
-#include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
 #include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
+
+// uncomment to show off :)
+// #define DO_WAVEPOOL
+#ifdef DO_WAVEPOOL
+#include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
+#endif
 
 // clang-format off
 
@@ -401,7 +406,9 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     LEDControl,
     LEDOff,
     myColorMap,
+#ifdef DO_WAVEPOOL
     WavepoolEffect,
+#endif
     LEDRainbowEffect,
     LEDRainbowWaveEffect,
     solidWhite,
@@ -425,7 +432,9 @@ void setup()
   // TODO  Determine whether this has happened.
   NumPad.numPadLayer = NUMPAD;
 
+#ifdef DO_WAVEPOOL
   WavepoolEffect.idle_timeout = 2000;
+#endif
 
   LEDRainbowEffect.brightness(150);
   LEDRainbowWaveEffect.brightness(150);

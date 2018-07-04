@@ -99,7 +99,7 @@ KEYMAPS(
 
   [MY_FUNCTION_L] = KEYMAP_STACKED
   (___,                   Key_F1,                 Key_F2,        Key_F3,        Key_F4,        Key_F5,           XXX,
-   Key_Tab,               XXX,                    Key_mouseBtnR, Key_mouseUp,   Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   XXX,                   XXX,                    Key_mouseBtnR, Key_mouseUp,   Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
    M(MACRO_DESKTOP_LEFT), M(MACRO_DESKTOP_RIGHT), Key_mouseL,    Key_mouseBtnM, Key_mouseR,    Key_mouseWarpNW,
    XXX,                   Key_PrintScreen,        Key_Insert,    Key_mouseDn,   XXX,           Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, ___, ___, ___,

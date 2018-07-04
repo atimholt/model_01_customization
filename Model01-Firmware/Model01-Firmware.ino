@@ -51,6 +51,9 @@ enum { DVORAK, QWERTY,
        MY_FUNCTION_L, MY_FUNCTION_R, FUNCTION, NUMPAD,
        SWITCHER};
 
+#define Key_LeftParen LSHIFT(Key_9)
+#define Key_RightParen LSHIFT(Key_0)
+
 KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
@@ -103,9 +106,9 @@ KEYMAPS(
    XXX,
 
    Key_KeypadNumLock,          Key_F6,               Key_F7,      Key_F8,      Key_F9,      Key_F10,               Key_F11,
-   Consumer_ScanNextTrack,     Key_LeftBracket,      Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightBracket,      Key_F12,
-                               LSHIFT(Key_9),        Key_Keypad4, Key_Keypad5, Key_Keypad6, LSHIFT(Key_0),         Key_Backslash,
-   Consumer_ScanPreviousTrack, Key_LeftCurlyBracket, Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightCurlyBracket, Key_Pipe,
+   Consumer_ScanNextTrack,     Key_LeftCurlyBracket, Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_RightCurlyBracket, Key_F12,
+                               Key_LeftParen,        Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_RightParen,        Key_Backslash,
+   Consumer_ScanPreviousTrack, Key_LeftBracket,      Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightBracket,      Key_Pipe,
    ___, Key_Spacebar, Key_Keypad0, ___,
    XXX),
 

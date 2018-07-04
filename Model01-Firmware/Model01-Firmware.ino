@@ -133,14 +133,14 @@ KEYMAPS(
    XXX, Key_F11, Key_F12, Key_F13, Key_F14, Key_F15, XXX,
    XXX, Key_F21, Key_F22, Key_F23, Key_F24, XXX,
    XXX, XXX,     XXX,     XXX,     XXX,     XXX,     XXX,
-   XXX, XXX, XXX, XXX,
+   Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    XXX,
 
    XXX, Key_F6,  Key_F7,  Key_F8,  Key_F9,  Key_F10, XXX,
    XXX, Key_F16, Key_F17, Key_F18, Key_F19, Key_F20, XXX,
    XXX, XXX,     XXX,     XXX,     XXX,     XXX,
    XXX, XXX,     XXX,     XXX,     XXX,     XXX,     XXX,
-   XXX, XXX, XXX, XXX,
+   Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
    XXX),
 
 

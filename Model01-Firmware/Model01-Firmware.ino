@@ -48,7 +48,7 @@ enum { MACRO_VERSION_INFO,
 
 // Layers
 enum { DVORAK, QWERTY,
-       MY_FUNCTION_L, MY_FUNCTION_R, FUNCTION, NUMPAD,
+       MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR, FUNCTION, NUMPAD,
        SWITCHER};
 
 #define Key_LeftParen LSHIFT(Key_9)
@@ -110,7 +110,7 @@ KEYMAPS(
                                Key_LeftParen,        Key_Keypad4, Key_Keypad5, Key_Keypad6, Key_RightParen,        Key_Backslash,
    Consumer_ScanPreviousTrack, Key_LeftBracket,      Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightBracket,      Key_Pipe,
    ___, Key_Spacebar, Key_Keypad0, ___,
-   XXX),
+   ShiftToLayer(MY_FUNCTION_LR)),
 
   // Only used with MY_FUNCTION_L
   [MY_FUNCTION_R] = KEYMAP_STACKED
@@ -119,13 +119,28 @@ KEYMAPS(
    ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___, ___, ___, ___,
    ___, ___, ___, ___,
-   XXX,
+   ShiftToLayer(MY_FUNCTION_LR),
 
    Consumer_Mute,            ___, ___,           ___,           ___,            ___, ___,
    Consumer_VolumeIncrement, ___, Key_Home,      Key_UpArrow,   Key_PageUp,     ___, ___,
                              ___, Key_LeftArrow, Key_Delete,    Key_RightArrow, ___, ___,
    Consumer_VolumeDecrement, ___, Key_End,       Key_DownArrow, Key_PageDown,   ___, ___,
    ___, Key_RightShift, Key_Spacebar, ___,
+   XXX),
+
+  [MY_FUNCTION_LR] = KEYMAP_STACKED
+  (___, Key_F1,  Key_F2,  Key_F3,  Key_F4,  Key_F5,  XXX,
+   XXX, Key_F11, Key_F12, Key_F13, Key_F14, Key_F15, XXX,
+   XXX, Key_F21, Key_F22, Key_F23, Key_F24, XXX,
+   XXX, XXX,     XXX,     XXX,     XXX,     XXX,     XXX,
+   XXX, XXX, XXX, XXX,
+   XXX,
+
+   XXX, Key_F6,  Key_F7,  Key_F8,  Key_F9,  Key_F10, XXX,
+   XXX, Key_F16, Key_F17, Key_F18, Key_F19, Key_F20, XXX,
+   XXX, XXX,     XXX,     XXX,     XXX,     XXX,
+   XXX, XXX,     XXX,     XXX,     XXX,     XXX,     XXX,
+   XXX, XXX, XXX, XXX,
    XXX),
 
 

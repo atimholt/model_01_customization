@@ -194,22 +194,21 @@ KEYMAPS(
 
 // clang-format on
 
+const uint8_t DefinedLayersCount PROGMEM = sizeof(keymaps) / sizeof(*keymaps);
+
 // Stuff plugins have asked for.
 using namespace kaleidoscope::LEDFunctionalColor;
-
-FCPlugin myColorMap(200, false);
 
 struct MyColorMap : public colorMap
 {
   // My own color constants, ensuring everything is in a consistent palette.
   static constexpr cRGB defaultColor            = dimgray;
   static constexpr cRGB baseColor               = lightgray;
+  static constexpr cRGB attentionBaseColor      = orangered;
   static constexpr cRGB secondaryColor          = teal;
   static constexpr cRGB attentionSecondaryColor = blue;
   static constexpr cRGB tertiaryColor           = orange;
   static constexpr cRGB attentionTertiaryColor  = yellow;
-  // If shift, capslock, & numlock detection are ever implemented:
-  // static constexpr cRGB attentionBaseColor   = red;
 
   // shift, control, gui, and alt can all be colored by "modifier" if nocolor is
   // set here.
@@ -230,7 +229,7 @@ struct MyColorMap : public colorMap
   static constexpr cRGB navigation = tertiaryColor;
 
   // Print Screen, Pause/Break, and Scroll Lock keys (brightness on Macs)
-  static constexpr cRGB system = attentionTertiaryColor;
+  static constexpr cRGB system = tertiaryColor;
 
   static constexpr cRGB arrow  = secondaryColor;
   static constexpr cRGB keypad = secondaryColor;
@@ -259,7 +258,42 @@ struct MyColorMap : public colorMap
   static constexpr cRGB LEDEffectNext = tertiaryColor;
 };
 
-const uint8_t DefinedLayersCount PROGMEM = sizeof(keymaps) / sizeof(*keymaps);
+
+FC_START_COLOR_LIST(MyColorMapOverrides)
+
+// Unusual Macros
+FC_KEYCOLOR(M(MACRO_VERSION_INFO), MyColorMap::attentionBaseColor)
+
+// Macros
+FC_GROUPKEY(M(MACRO_ANY))
+FC_GROUPKEY(M(MACRO_NEXT_TAB))
+FC_GROUPKEY(M(MACRO_PREV_TAB))
+FC_GROUPKEY(M(MACRO_DESKTOP_LEFT))
+FC_KEYCOLOR(M(MACRO_DESKTOP_RIGHT), MyColorMap::attentionTertiaryColor)
+
+// Layers
+FC_GROUPKEY(M(MACRO_MODE_DVORAK))
+FC_GROUPKEY(M(MACRO_MODE_GAMING))
+FC_KEYCOLOR(M(MACRO_MODE_QWERTY), green)
+
+FC_KEYCOLOR(M(SWITCHER_BUTTON), MyColorMap::attentionBaseColor)
+
+// Function switchers
+FC_GROUPKEY(ShiftToLayer(FUNCTION))
+FC_GROUPKEY(ShiftToLayer(MY_FUNCTION_LR))
+FC_GROUPKEY(M(MACRO_R_FUNCTION))
+FC_KEYCOLOR(ShiftToLayer(MY_FUNCTION_L), MyColorMap::secondaryColor)
+
+FC_GROUPKEY(LockLayer(SWITCHER))
+FC_KEYCOLOR(LockLayer(NUMPAD), MyColorMap::attentionBaseColor)
+
+FC_KEYCOLOR(Key_CapsLock, MyColorMap::attentionTertiaryColor)
+
+FC_END_COLOR_LIST
+
+
+FCPlugin myColorMap(FC_COLOR_LIST(MyColorMapOverrides), 255);
+
 
 /// When a key bound to the macro is pressed, this macro
 /// prints out the firmware build information as virtual keystrokes

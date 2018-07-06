@@ -7,6 +7,20 @@
 #define BUILD_INFORMATION "locally built, modified by Tim Holt"
 #endif
 
+// Options behind preprocessor guards. For quick, impermanent changes.
+
+// For when I run into other Model01 users who touch type:
+// #define CONFORM_QWERTY_THUMBS_TO_FACTORY_DEFAULT
+
+// To better tell, at a glance, the current active layout.
+// Made quickly toggleable in case it's too clashy.
+// TODO figure out how to properly make it a separate color scheme (run-time
+// optional)
+#define DIFFERENTIATE_LETTERS_BY_COLOR
+
+// uncomment to show off :)
+// #define DO_WAVEPOOL
+
 
 #include "Kaleidoscope.h"
 
@@ -29,8 +43,6 @@
 // Non-core plugins, not in this repo:
 #include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
 
-// uncomment to show off :)
-// #define DO_WAVEPOOL
 #ifdef DO_WAVEPOOL
 #include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
 #endif
@@ -288,6 +300,21 @@ FC_GROUPKEY(LockLayer(SWITCHER))
 FC_KEYCOLOR(LockLayer(NUMPAD), MyColorMap::attentionBaseColor)
 
 FC_KEYCOLOR(Key_CapsLock, MyColorMap::attentionTertiaryColor)
+
+// Vowels
+#ifdef DIFFERENTIATE_LETTERS_BY_COLOR
+FC_GROUPKEY(Key_A)
+FC_GROUPKEY(Key_E)
+FC_GROUPKEY(Key_I)
+FC_GROUPKEY(Key_O)
+FC_KEYCOLOR(Key_U, skyblue)
+
+// Vim directional keys
+FC_GROUPKEY(Key_H)
+FC_GROUPKEY(Key_J)
+FC_GROUPKEY(Key_K)
+FC_KEYCOLOR(Key_L, coral)
+#endif
 
 FC_END_COLOR_LIST
 

@@ -19,7 +19,7 @@
 #define DIFFERENTIATE_LETTERS_BY_COLOR
 
 // uncomment to show off :)
-// #define DO_WAVEPOOL
+#define DO_WAVEPOOL
 
 
 #include "Kaleidoscope.h"
@@ -37,7 +37,6 @@
 #include "Kaleidoscope-LEDEffect-Breathe.h"
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
-#include "Kaleidoscope-NumPad.h"
 #include "LED-Off.h"
 
 // Non-core plugins, not in this repo:
@@ -498,16 +497,17 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
 #ifdef DO_WAVEPOOL
     WavepoolEffect,
 #endif
-    LEDRainbowEffect,
     LEDRainbowWaveEffect,
+    StalkerEffect,
     solidWhite,
     solidRed,
     solidBrightOrange,
+    solidYellow,
     solidGreen,
     solidBlue,
+    solidIndigo,
+    solidViolet,
     LEDBreatheEffect,
-    StalkerEffect,
-    NumPad,
     Macros,
     MouseKeys,
     HostPowerManagement);
@@ -516,25 +516,20 @@ void setup()
 {
   Kaleidoscope.setup();
 
-  // While we hope to improve this in the future, the NumPad plugin
-  // needs to be explicitly told which keymap layer is your numpad layer
-  // TODO  Determine whether this has happened.
-  NumPad.numPadLayer = NUMPAD;
-
 #ifdef DO_WAVEPOOL
   WavepoolEffect.idle_timeout = 2000;
 #endif
 
-  LEDRainbowEffect.brightness(150);
   LEDRainbowWaveEffect.brightness(150);
 
   StalkerEffect.variant = STALKER(BlazingTrail);
+  StalkerEffect.step_length = 150;
 
   FC_SET_THEME(myColorMap, MyColorMap);
 
-  // We want to make sure that the firmware starts with LED effects off
-  // This avoids over-taxing devices that don't have a lot of power to share
-  // with USB devices
+  LEDBreatheEffect.hue = 85; // green
+
+  // Start with LED off in case there’s not much power.
   LEDOff.activate();
 }
 

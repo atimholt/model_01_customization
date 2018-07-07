@@ -59,7 +59,7 @@ ConstructorInitializerAllOnOneLineOrOnePerLine: true
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: false
 AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: false
 AllowAllParametersOfDeclarationOnNextLine: true
 # Choosing "All" does horrible things to the surrounding whitespace. :(
 AllowShortFunctionsOnASingleLine: None

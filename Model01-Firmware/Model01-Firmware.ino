@@ -4,7 +4,8 @@
 // Modified by Tim Holt
 
 #ifndef BUILD_INFORMATION
-#define BUILD_INFORMATION "\nlocally built, modified by Tim Holt\ncompiled " __DATE__ " " __TIME__ "\n"
+#define BUILD_INFORMATION                                                      \
+  "\nlocally built, modified by Tim Holt\ncompiled " __DATE__ " " __TIME__ "\n"
 #endif
 
 // Options behind preprocessor guards. For quick, impermanent changes.
@@ -367,8 +368,11 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
   case MACRO_MODE_DVORAK:
     Layer.on(DVORAK); // already/still on, but whatever.
     break;
-  case MACRO_MODE_GAMING: break;
-  case MACRO_MODE_QWERTY: Layer.on(QWERTY); break;
+  case MACRO_MODE_GAMING:
+    break;
+  case MACRO_MODE_QWERTY:
+    Layer.on(QWERTY);
+    break;
   }
 }
 
@@ -388,9 +392,13 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
 const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
 {
   switch (macroIndex) {
-  case MACRO_VERSION_INFO: versionInfoMacro(keyState); break;
+  case MACRO_VERSION_INFO:
+    versionInfoMacro(keyState);
+    break;
 
-  case MACRO_ANY: anyKeyMacro(keyState); break;
+  case MACRO_ANY:
+    anyKeyMacro(keyState);
+    break;
 
   case MACRO_NEXT_TAB:
     if (keyToggledOn(keyState))
@@ -418,7 +426,9 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
   // All the modes
   case MACRO_MODE_DVORAK:
   case MACRO_MODE_GAMING:
-  case MACRO_MODE_QWERTY: modeSwitch(macroIndex, keyState); break;
+  case MACRO_MODE_QWERTY:
+    modeSwitch(macroIndex, keyState);
+    break;
 
   case SWITCHER_BUTTON:
     // TODO  make it more obvious that this is a mode thing, couple it together.
@@ -476,7 +486,8 @@ void toggleLedsOnSuspendResume(kaleidoscope::HostPowerManagement::Event event)
     LEDControl.paused = false;
     LEDControl.refreshAll();
     break;
-  case kaleidoscope::HostPowerManagement::Sleep: break;
+  case kaleidoscope::HostPowerManagement::Sleep:
+    break;
   }
 }
 

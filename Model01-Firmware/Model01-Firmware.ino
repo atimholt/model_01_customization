@@ -54,14 +54,12 @@ enum { MACRO_VERSION_INFO,
        MACRO_ANY,
        MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_LEFT, MACRO_DESKTOP_RIGHT,
        MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_MY_QWERTY, MACRO_MODE_QWERTY,
-       SWITCHER_BUTTON,
        MACRO_R_FUNCTION // For complementary function layers based on each other
      };
 
 // Layers
 enum { DVORAK, MY_QWERTY, QWERTY,
-       MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR, FUNCTION, NUMPAD,
-       SWITCHER};
+       FUNCTION, NUMPAD, MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR };
 
 #define Key_LeftParen LSHIFT(Key_9)
 #define Key_RightParen LSHIFT(Key_0)
@@ -76,7 +74,7 @@ KEYMAPS(
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    ShiftToLayer(MY_FUNCTION_L),
 
-   Consumer_PlaySlashPause, Key_6, Key_7, Key_8, Key_9, Key_0, LockLayer(SWITCHER),
+   Consumer_PlaySlashPause, Key_6, Key_7, Key_8, Key_9, Key_0, XXX,
    Key_Enter,               Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                             Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    Key_CapsLock,            Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
@@ -91,7 +89,7 @@ KEYMAPS(
    ___, ___, ___, ___,
    ___,
 
-   ___, ___,   ___,   ___,       ___,        ___,           LockLayer(SWITCHER),
+   ___, ___,   ___,   ___,       ___,        ___,           XXX,
    ___, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
         Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
    ___, Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
@@ -112,7 +110,7 @@ KEYMAPS(
 #endif
    ShiftToLayer(FUNCTION),
 
-   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(SWITCHER),
+   M(MACRO_ANY),  Key_6, Key_7, Key_8,     Key_9,         Key_0,         LockLayer(NUMPAD),
    Key_Enter,     Key_Y, Key_U, Key_I,     Key_O,         Key_P,         Key_Equals,
                   Key_H, Key_J, Key_K,     Key_L,         Key_Semicolon, Key_Quote,
    Key_RightAlt,  Key_N, Key_M, Key_Comma, Key_Period,    Key_Slash,     Key_Minus,
@@ -123,6 +121,36 @@ KEYMAPS(
 #endif
    ShiftToLayer(FUNCTION)),
 
+
+  [FUNCTION] =  KEYMAP_STACKED
+  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
+   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
+   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
+   ___, Key_Delete, ___, ___,
+   ShiftToLayer(MY_FUNCTION_LR),
+
+   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
+   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
+                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
+   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
+   ___, ___, Key_Enter, ___,
+   ShiftToLayer(MY_FUNCTION_LR)),
+
+  [NUMPAD] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, LockLayer(NUMPAD),
+   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
+                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         ___,
+   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
+   ___, ___, ___, ___,
+   ___),
 
   [MY_FUNCTION_L] = KEYMAP_STACKED
   (___,                   Key_F1,                 Key_F2,        Key_F3,        Key_F4,        Key_F5,           XXX,
@@ -163,58 +191,11 @@ KEYMAPS(
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    XXX,
 
-   M(MACRO_ANY), Key_F6,  Key_F7,  Key_F8,  Key_F9,  Key_F10, XXX,
-   XXX,          Key_F16, Key_F17, Key_F18, Key_F19, Key_F20, XXX,
-   XXX,          XXX,     XXX,     XXX,     XXX,     XXX,
-   XXX,          XXX,     XXX,     XXX,     XXX,     XXX,     XXX,
+   M(MACRO_ANY), Key_F6,  Key_F7,               Key_F8,  Key_F9,  Key_F10,                 XXX,
+   XXX,          Key_F16, Key_F17,              Key_F18, Key_F19, Key_F20,                 XXX,
+                 XXX,     M(MACRO_MODE_DVORAK), XXX,     XXX,     M(MACRO_MODE_MY_QWERTY), XXX,
+   XXX,          XXX,     XXX,                  XXX,     XXX,     M(MACRO_MODE_QWERTY),    XXX,
    Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
-   XXX),
-
-
-  [FUNCTION] =  KEYMAP_STACKED
-  (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
-   Key_Tab,  ___,              Key_mouseUp, ___,        Key_mouseBtnR, Key_mouseWarpEnd, Key_mouseWarpNE,
-   Key_Home, Key_mouseL,       Key_mouseDn, Key_mouseR, Key_mouseBtnL, Key_mouseWarpNW,
-   Key_End,  Key_PrintScreen,  Key_Insert,  ___,        Key_mouseBtnM, Key_mouseWarpSW,  Key_mouseWarpSE,
-   ___, Key_Delete, ___, ___,
-   ___,
-
-   Consumer_ScanPreviousTrack, Key_F6,                 Key_F7,                   Key_F8,                   Key_F9,          Key_F10,          Key_F11,
-   Consumer_PlaySlashPause,    Consumer_ScanNextTrack, Key_LeftCurlyBracket,     Key_RightCurlyBracket,    Key_LeftBracket, Key_RightBracket, Key_F12,
-                               Key_LeftArrow,          Key_DownArrow,            Key_UpArrow,              Key_RightArrow,  ___,              ___,
-   Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
-   ___, ___, Key_Enter, ___,
-   ___),
-
-  [NUMPAD] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
-
-   M(MACRO_VERSION_INFO),  ___, Key_Keypad7, Key_Keypad8,   Key_Keypad9,        Key_KeypadSubtract, LockLayer(NUMPAD),
-   ___,                    ___, Key_Keypad4, Key_Keypad5,   Key_Keypad6,        Key_KeypadAdd,      ___,
-                           ___, Key_Keypad1, Key_Keypad2,   Key_Keypad3,        Key_Equals,         ___,
-   ___,                    ___, Key_Keypad0, Key_KeypadDot, Key_KeypadMultiply, Key_KeypadDivide,   Key_Enter,
-   ___, ___, ___, ___,
-   ___),
-
-
-  [SWITCHER] =  KEYMAP_STACKED
-  (___, M(MACRO_MODE_DVORAK), M(MACRO_MODE_GAMING), XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX,
-   XXX,
-
-   XXX, XXX, XXX, XXX, M(MACRO_MODE_MY_QWERTY), M(MACRO_MODE_QWERTY), M(SWITCHER_BUTTON),
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-        XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX, XXX, XXX, XXX,
-   XXX, XXX, XXX, XXX,
    XXX)
 
 ) // KEYMAPS(
@@ -305,15 +286,12 @@ FC_KEYCOLOR(M(MACRO_MODE_MY_QWERTY), green)
 
 FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
 
-FC_KEYCOLOR(M(SWITCHER_BUTTON), MyColorMap::attentionBaseColor)
-
 // Function switchers
 FC_GROUPKEY(ShiftToLayer(FUNCTION))
 FC_GROUPKEY(ShiftToLayer(MY_FUNCTION_LR))
 FC_GROUPKEY(M(MACRO_R_FUNCTION))
 FC_KEYCOLOR(ShiftToLayer(MY_FUNCTION_L), MyColorMap::secondaryColor)
 
-FC_GROUPKEY(LockLayer(SWITCHER))
 FC_KEYCOLOR(LockLayer(NUMPAD), MyColorMap::attentionBaseColor)
 
 FC_KEYCOLOR(Key_CapsLock, MyColorMap::attentionTertiaryColor)
@@ -365,12 +343,13 @@ static void anyKeyMacro(uint8_t keyState)
 
 /// Deactivates all but layer 0.
 ///
-static void clearLayers()
+static void clearLayers(bool skipFunctionLR = false)
 {
   // Layer 0 is never turned off!
   for (uint8_t i = 1; i < DefinedLayersCount; ++i) {
     Layer.off(i);
   }
+  if (!skipFunctionLR) Layer.on(MY_FUNCTION_LR);
 }
 
 /// Activates related layers together. They work together as 'modes'.
@@ -380,7 +359,7 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
   /*static const PROGMEM = {}*/
   if (!keyToggledOn(keyState)) return;
 
-  clearLayers();
+  clearLayers(true);
   switch (macroIndex) {
   case MACRO_MODE_DVORAK:
     Layer.on(DVORAK); // already/still on, but whatever.
@@ -450,15 +429,6 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
   case MACRO_MODE_MY_QWERTY:
   case MACRO_MODE_QWERTY:
     modeSwitch(macroIndex, keyState);
-    break;
-
-  case SWITCHER_BUTTON:
-    // TODO  make it more obvious that this is a mode thing, couple it together.
-    if (keyToggledOn(keyState) && Layer.isOn(QWERTY)) {
-      clearLayers();
-      Layer.on(QWERTY);
-      Layer.on(NUMPAD);
-    }
     break;
 
   case MACRO_R_FUNCTION:

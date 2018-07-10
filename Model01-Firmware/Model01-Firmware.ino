@@ -53,13 +53,13 @@
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
        MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_LEFT, MACRO_DESKTOP_RIGHT,
-       MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_QWERTY,
+       MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_MY_QWERTY, MACRO_MODE_QWERTY,
        SWITCHER_BUTTON,
        MACRO_R_FUNCTION // For complementary function layers based on each other
      };
 
 // Layers
-enum { DVORAK, QWERTY,
+enum { DVORAK, MY_QWERTY, QWERTY,
        MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR, FUNCTION, NUMPAD,
        SWITCHER};
 
@@ -82,6 +82,21 @@ KEYMAPS(
    Key_CapsLock,            Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
    Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
    M(MACRO_R_FUNCTION)),
+
+  [MY_QWERTY] = KEYMAP_STACKED
+  (___,      ___,   ___,   ___,   ___,   ___,   ___,
+   ___,      Key_Q, Key_W, Key_E, Key_R, Key_T, ___,
+   Key_Home, Key_A, Key_S, Key_D, Key_F, Key_G,
+   Key_End,  Key_Z, Key_X, Key_C, Key_V, Key_B, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___,   ___,   ___,       ___,        ___,           LockLayer(SWITCHER),
+   ___, Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals,
+        Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote,
+   ___, Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus,
+   ___, ___, ___, ___,
+   ___),
 
   [QWERTY] = KEYMAP_STACKED
   (___,          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
@@ -195,7 +210,7 @@ KEYMAPS(
    XXX, XXX, XXX, XXX,
    XXX,
 
-   XXX, XXX, XXX, XXX, XXX, M(MACRO_MODE_QWERTY), M(SWITCHER_BUTTON),
+   XXX, XXX, XXX, XXX, M(MACRO_MODE_MY_QWERTY), M(MACRO_MODE_QWERTY), M(SWITCHER_BUTTON),
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
         XXX, XXX, XXX, XXX, XXX, XXX,
    XXX, XXX, XXX, XXX, XXX, XXX, XXX,
@@ -286,7 +301,9 @@ FC_KEYCOLOR(M(MACRO_DESKTOP_RIGHT), MyColorMap::attentionTertiaryColor)
 // Layers
 FC_GROUPKEY(M(MACRO_MODE_DVORAK))
 FC_GROUPKEY(M(MACRO_MODE_GAMING))
-FC_KEYCOLOR(M(MACRO_MODE_QWERTY), green)
+FC_KEYCOLOR(M(MACRO_MODE_MY_QWERTY), green)
+
+FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
 
 FC_KEYCOLOR(M(SWITCHER_BUTTON), MyColorMap::attentionBaseColor)
 
@@ -369,6 +386,10 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
     Layer.on(DVORAK); // already/still on, but whatever.
     break;
   case MACRO_MODE_GAMING:
+    // TODO implement something here.
+    break;
+  case MACRO_MODE_MY_QWERTY:
+    Layer.on(MY_QWERTY);
     break;
   case MACRO_MODE_QWERTY:
     Layer.on(QWERTY);
@@ -426,6 +447,7 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
   // All the modes
   case MACRO_MODE_DVORAK:
   case MACRO_MODE_GAMING:
+  case MACRO_MODE_MY_QWERTY:
   case MACRO_MODE_QWERTY:
     modeSwitch(macroIndex, keyState);
     break;

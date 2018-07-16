@@ -54,15 +54,19 @@ enum { MACRO_VERSION_INFO,
        MACRO_ANY,
        MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_LEFT, MACRO_DESKTOP_RIGHT,
        MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_MY_QWERTY, MACRO_MODE_QWERTY,
+       MACRO_MODE_DF,
        MACRO_R_FUNCTION // For complementary function layers based on each other
      };
 
 // Layers
 enum { DVORAK, MY_QWERTY, QWERTY,
+       DWARF_FORTRESS, DF_FUNCTION,
        FUNCTION, NUMPAD, MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR };
 
 #define Key_LeftParen LSHIFT(Key_9)
 #define Key_RightParen LSHIFT(Key_0)
+#define Key_RightAngleBracket LSHIFT(Key_Comma)
+#define Key_LeftAngleBracket LSHIFT(Key_Period)
 
 KEYMAPS(
 
@@ -120,6 +124,38 @@ KEYMAPS(
    Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
 #endif
    ShiftToLayer(FUNCTION)),
+
+
+   // Based on MY_QWERTY.
+  [DWARF_FORTRESS] =  KEYMAP_STACKED
+  (___,                   ___, ___, ___, ___, ___, ___,
+   ___,                   ___, ___, ___, ___, ___, ___,
+   Key_LeftAngleBracket,  ___, ___, ___, ___, ___,
+   Key_RightAngleBracket, ___, ___, ___, ___, ___, ___,
+   Key_LeftAlt, ___, ___, ___,
+   ShiftToLayer(DF_FUNCTION),
+
+   XXX, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, Key_RightAlt,
+   ShiftToLayer(DF_FUNCTION)),
+
+  [DF_FUNCTION] =  KEYMAP_STACKED
+  (XXX,               XXX,                  XXX,           XXX,           XXX,            XXX,                   XXX,
+   Key_F10,           Key_LeftCurlyBracket, Key_Home,      Key_UpArrow,   Key_PageUp,     Key_RightCurlyBracket, XXX,
+   Key_mouseScrollUp, Key_LeftParen,        Key_LeftArrow, Key_Delete,    Key_RightArrow, Key_RightParen,
+   Key_mouseScrollDn, Key_LeftBracket,      Key_End,       Key_DownArrow, Key_PageDown,   Key_RightBracket,      XXX,
+   XXX, XXX, XXX, XXX,
+   ShiftToLayer(MY_FUNCTION_LR),
+
+   Key_KeypadNumLock, XXX, XXX,         Key_KeypadDivide, Key_KeypadMultiply, Key_KeypadSubtract, XXX,
+   XXX,               XXX, Key_Keypad7, Key_Keypad8,      Key_Keypad9,        Key_KeypadAdd,      XXX,
+                      XXX, Key_Keypad4, Key_Keypad5,      Key_Keypad6,        Key_KeypadEnter,    XXX,
+   XXX,               XXX, Key_Keypad1, Key_Keypad2,      Key_Keypad3,        XXX,                XXX,
+   ___, Key_Spacebar, Key_Keypad0, Key_KeypadDot,
+   ShiftToLayer(MY_FUNCTION_LR)),
 
 
   [FUNCTION] =  KEYMAP_STACKED
@@ -191,10 +227,10 @@ KEYMAPS(
    Key_LeftAlt, Key_Backspace, Key_LeftShift, Key_LeftControl,
    XXX,
 
-   M(MACRO_ANY), Key_F6,  Key_F7,               Key_F8,  Key_F9,  Key_F10,                 XXX,
-   XXX,          Key_F16, Key_F17,              Key_F18, Key_F19, Key_F20,                 XXX,
-                 XXX,     M(MACRO_MODE_DVORAK), XXX,     XXX,     M(MACRO_MODE_MY_QWERTY), XXX,
-   XXX,          XXX,     XXX,                  XXX,     XXX,     M(MACRO_MODE_QWERTY),    XXX,
+   M(MACRO_ANY), Key_F6,           Key_F7,               Key_F8,  Key_F9,  Key_F10,                 XXX,
+   XXX,          Key_F16,          Key_F17,              Key_F18, Key_F19, Key_F20,                 XXX,
+                 XXX,              M(MACRO_MODE_DVORAK), XXX,     XXX,     M(MACRO_MODE_MY_QWERTY), XXX,
+   XXX,          M(MACRO_MODE_DF), XXX,                  XXX,     XXX,     M(MACRO_MODE_QWERTY),    XXX,
    Key_RightControl, Key_RightShift, Key_PcApplication, Key_RightAlt,
    XXX)
 
@@ -282,6 +318,7 @@ FC_KEYCOLOR(M(MACRO_DESKTOP_RIGHT), MyColorMap::attentionTertiaryColor)
 // Layers
 FC_GROUPKEY(M(MACRO_MODE_DVORAK))
 FC_GROUPKEY(M(MACRO_MODE_GAMING))
+FC_GROUPKEY(M(MACRO_MODE_DF))
 FC_KEYCOLOR(M(MACRO_MODE_MY_QWERTY), green)
 
 FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
@@ -290,7 +327,11 @@ FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
 FC_GROUPKEY(ShiftToLayer(FUNCTION))
 FC_GROUPKEY(ShiftToLayer(MY_FUNCTION_LR))
 FC_GROUPKEY(M(MACRO_R_FUNCTION))
+FC_GROUPKEY(ShiftToLayer(DF_FUNCTION))
 FC_KEYCOLOR(ShiftToLayer(MY_FUNCTION_L), MyColorMap::secondaryColor)
+
+FC_GROUPKEY(Key_LeftAngleBracket)
+FC_KEYCOLOR(Key_RightAngleBracket, MyColorMap::tertiaryColor)
 
 FC_KEYCOLOR(LockLayer(NUMPAD), MyColorMap::attentionBaseColor)
 
@@ -373,6 +414,10 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
   case MACRO_MODE_QWERTY:
     Layer.on(QWERTY);
     break;
+  case MACRO_MODE_DF:
+    Layer.on(MY_QWERTY);
+    Layer.on(DWARF_FORTRESS);
+    break;
   }
 }
 
@@ -428,6 +473,7 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
   case MACRO_MODE_GAMING:
   case MACRO_MODE_MY_QWERTY:
   case MACRO_MODE_QWERTY:
+  case MACRO_MODE_DF:
     modeSwitch(macroIndex, keyState);
     break;
 

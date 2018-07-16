@@ -63,10 +63,8 @@ enum { DVORAK, MY_QWERTY, QWERTY,
        DWARF_FORTRESS, DF_FUNCTION,
        FUNCTION, NUMPAD, MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR };
 
-#define Key_LeftParen LSHIFT(Key_9)
-#define Key_RightParen LSHIFT(Key_0)
-#define Key_RightAngleBracket LSHIFT(Key_Comma)
-#define Key_LeftAngleBracket LSHIFT(Key_Period)
+#define Key_LeftAngleBracket LSHIFT(Key_Comma)
+#define Key_RightAngleBracket LSHIFT(Key_Period)
 
 KEYMAPS(
 

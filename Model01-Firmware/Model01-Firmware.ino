@@ -84,10 +84,10 @@ KEYMAPS(
    M(MACRO_R_FUNCTION)),
 
   [MY_QWERTY] = KEYMAP_STACKED
-  (___,      ___,   ___,   ___,   ___,   ___,   ___,
-   ___,      Key_Q, Key_W, Key_E, Key_R, Key_T, ___,
-   Key_Home, Key_A, Key_S, Key_D, Key_F, Key_G,
-   Key_End,  Key_Z, Key_X, Key_C, Key_V, Key_B, ___,
+  (___, ___,   ___,   ___,   ___,   ___,   ___,
+   ___, Key_Q, Key_W, Key_E, Key_R, Key_T, ___,
+   ___, Key_A, Key_S, Key_D, Key_F, Key_G,
+   ___, Key_Z, Key_X, Key_C, Key_V, Key_B, ___,
    ___, ___, ___, ___,
    ___,
 
@@ -188,9 +188,9 @@ KEYMAPS(
 
   [MY_FUNCTION_L] = KEYMAP_STACKED
   (___,                   Key_F1,                 Key_F2,        Key_F3,        Key_F4,        Key_F5,           XXX,
-   XXX,                   XXX,                    Key_mouseBtnR, Key_mouseUp,   Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
+   Key_mouseScrollUp,     XXX,                    Key_mouseBtnR, Key_mouseUp,   Key_mouseBtnL, Key_mouseWarpEnd, Key_mouseWarpNE,
    M(MACRO_DESKTOP_LEFT), M(MACRO_DESKTOP_RIGHT), Key_mouseL,    Key_mouseBtnM, Key_mouseR,    Key_mouseWarpNW,
-   XXX,                   Key_PrintScreen,        Key_Insert,    Key_mouseDn,   XXX,           Key_mouseWarpSW,  Key_mouseWarpSE,
+   Key_mouseScrollDn,     Key_PrintScreen,        Key_Insert,    Key_mouseDn,   XXX,           Key_mouseWarpSW,  Key_mouseWarpSE,
    ___, ___, ___, ___,
    XXX,
 

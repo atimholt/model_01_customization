@@ -20,7 +20,7 @@
 #define DIFFERENTIATE_LETTERS_BY_COLOR
 
 // uncomment to show off :)
-#define DO_WAVEPOOL
+// #define DO_MORE_LIGHTING
 
 
 #include "Kaleidoscope.h"
@@ -33,17 +33,20 @@
 #include "Kaleidoscope-LEDControl.h"
 
 // Lighting plugins
-#include "Kaleidoscope-LED-Stalker.h"
 #include "Kaleidoscope-LEDEffect-BootGreeting.h"
-#include "Kaleidoscope-LEDEffect-Breathe.h"
-#include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "LED-Off.h"
+
+#ifdef DO_MORE_LIGHTING
+#include "Kaleidoscope-LED-Stalker.h"
+#include "Kaleidoscope-LEDEffect-Breathe.h"
+#include "Kaleidoscope-LEDEffect-Rainbow.h"
+#endif
 
 // Non-core plugins, not in this repo:
 #include "Kaleidoscope-LEDEffect-FunctionalColor.h" // https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor
 
-#ifdef DO_WAVEPOOL
+#ifdef DO_MORE_LIGHTING
 #include "Kaleidoscope-LED-Wavepool.h" //              https://github.com/ToyKeeper/Kaleidoscope-LED-Wavepool
 #endif
 
@@ -493,8 +496,6 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
 // Keyboardio Model 01.
-
-
 static kaleidoscope::LEDSolidColor solidRed(160, 0, 0);
 static kaleidoscope::LEDSolidColor solidOrange(140, 70, 0);
 static kaleidoscope::LEDSolidColor solidBrightOrange(168, 84, 0);
@@ -504,6 +505,7 @@ static kaleidoscope::LEDSolidColor solidBlue(0, 70, 130);
 static kaleidoscope::LEDSolidColor solidIndigo(0, 0, 170);
 static kaleidoscope::LEDSolidColor solidViolet(130, 0, 120);
 static kaleidoscope::LEDSolidColor solidWhite(100, 100, 100);
+static kaleidoscope::LEDSolidColor solidVeryDim(30, 30, 30);
 
 /// Toggles the LEDs off when the host goes to sleep, and turns them back on
 /// when it wakes up.
@@ -540,10 +542,9 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     TestMode,
     LEDControl,
     LEDOff,
+#ifdef DO_MORE_LIGHTING
     myColorMap,
-#ifdef DO_WAVEPOOL
     WavepoolEffect,
-#endif
     LEDRainbowWaveEffect,
     StalkerEffect,
     solidWhite,
@@ -555,6 +556,10 @@ KALEIDOSCOPE_INIT_PLUGINS(BootGreetingEffect,
     solidIndigo,
     solidViolet,
     LEDBreatheEffect,
+#else
+    solidVeryDim,
+    myColorMap,
+#endif
     Macros,
     MouseKeys,
     HostPowerManagement);
@@ -563,18 +568,19 @@ void setup()
 {
   Kaleidoscope.setup();
 
-#ifdef DO_WAVEPOOL
+#ifdef DO_MORE_LIGHTING
   WavepoolEffect.idle_timeout = 2000;
-#endif
-
   LEDRainbowWaveEffect.brightness(150);
 
   StalkerEffect.variant     = STALKER(BlazingTrail);
   StalkerEffect.step_length = 150;
 
+  LEDBreatheEffect.hue = 85; // green
+#endif
+
   FC_SET_THEME(myColorMap, MyColorMap);
 
-  LEDBreatheEffect.hue = 85; // green
+  BootGreetingEffect.timeout = 5000;
 
   // Start with LED off in case there’s not much power.
   LEDOff.activate();

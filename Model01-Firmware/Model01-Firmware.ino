@@ -247,13 +247,18 @@ using namespace kaleidoscope::LEDFunctionalColor;
 struct MyColorMap : public colorMap
 {
   // My own color constants, ensuring everything is in a consistent palette.
-  static constexpr cRGB defaultColor            = dimgray;
-  static constexpr cRGB baseColor               = lightgray;
-  static constexpr cRGB attentionBaseColor      = orangered;
+  static constexpr cRGB defaultColor = dimgray;
+
+  static constexpr cRGB baseColor          = lightgray;
+  static constexpr cRGB subtleBaseColor1   = skyblue;
+  static constexpr cRGB subtleBaseColor2   = coral;
+  static constexpr cRGB attentionBaseColor = orangered;
+
   static constexpr cRGB secondaryColor          = teal;
   static constexpr cRGB attentionSecondaryColor = blue;
-  static constexpr cRGB tertiaryColor           = orange;
-  static constexpr cRGB attentionTertiaryColor  = yellow;
+
+  static constexpr cRGB tertiaryColor          = orange;
+  static constexpr cRGB attentionTertiaryColor = yellow;
 
   // shift, control, gui, and alt can all be colored by "modifier" if nocolor is
   // set here.
@@ -338,19 +343,19 @@ FC_KEYCOLOR(LockLayer(NUMPAD), MyColorMap::attentionBaseColor)
 
 FC_KEYCOLOR(Key_CapsLock, MyColorMap::attentionTertiaryColor)
 
-// Vowels
 #ifdef DIFFERENTIATE_LETTERS_BY_COLOR
+// Vowels
 FC_GROUPKEY(Key_A)
 FC_GROUPKEY(Key_E)
 FC_GROUPKEY(Key_I)
 FC_GROUPKEY(Key_O)
-FC_KEYCOLOR(Key_U, skyblue)
+FC_KEYCOLOR(Key_U, MyColorMap::subtleBaseColor1)
 
 // Vim directional keys
 FC_GROUPKEY(Key_H)
 FC_GROUPKEY(Key_J)
 FC_GROUPKEY(Key_K)
-FC_KEYCOLOR(Key_L, coral)
+FC_KEYCOLOR(Key_L, MyColorMap::subtleBaseColor2)
 #endif
 
 FC_END_COLOR_LIST

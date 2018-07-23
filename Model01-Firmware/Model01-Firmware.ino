@@ -57,13 +57,14 @@ enum { MACRO_VERSION_INFO,
        MACRO_ANY,
        MACRO_NEXT_TAB, MACRO_PREV_TAB, MACRO_DESKTOP_LEFT, MACRO_DESKTOP_RIGHT,
        MACRO_MODE_DVORAK, MACRO_MODE_GAMING, MACRO_MODE_MY_QWERTY, MACRO_MODE_QWERTY,
-       MACRO_MODE_DF,
+       MACRO_MODE_DF, MACRO_MODE_EPISTORY,
        MACRO_R_FUNCTION // For complementary function layers based on each other
      };
 
 // Layers
 enum { DVORAK, MY_QWERTY, QWERTY,
        DWARF_FORTRESS, DF_FUNCTION,
+       EPISTORY, EPISTORY_FUNCTION,
        FUNCTION, NUMPAD, MY_FUNCTION_L, MY_FUNCTION_R, MY_FUNCTION_LR };
 
 #define Key_LeftAngleBracket LSHIFT(Key_Comma)
@@ -158,6 +159,39 @@ KEYMAPS(
    ___, Key_Spacebar, Key_Keypad0, Key_KeypadDot,
    ShiftToLayer(MY_FUNCTION_LR)),
 
+  // Epistory needs its own mode because its movement keys are weird. Also,
+  // it's nice to block out the Windows key with any game, and the browser tab
+  // switching macro serves less than no purpose anywhere but a browser.
+  [EPISTORY] =  KEYMAP_STACKED
+  (___,          ___, ___, ___, ___, ___, ___,
+   ___,          ___, ___, ___, ___, ___, ___,
+   Key_PageUp,   ___, ___, ___, ___, ___,
+   Key_PageDown, ___, ___, ___, ___, ___, ___,
+   Key_LeftAlt, ___, ___, ___,
+   ShiftToLayer(EPISTORY_FUNCTION),
+
+   XXX, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, Key_RightAlt,
+   ShiftToLayer(EPISTORY_FUNCTION)),
+
+  [EPISTORY_FUNCTION] =  KEYMAP_STACKED
+  (XXX,               XXX,                  XXX,           XXX,           XXX,            XXX,                   XXX,
+   Key_F10,           Key_LeftCurlyBracket, Key_Period,    Key_UpArrow,   Key_C,          Key_RightCurlyBracket, XXX,
+   Key_mouseScrollUp, Key_LeftParen,        Key_LeftArrow, Key_Spacebar,  Key_RightArrow, Key_RightParen,
+   Key_mouseScrollDn, Key_LeftBracket,      Key_U,         Key_DownArrow, Key_H,          Key_RightBracket,      XXX,
+   XXX, XXX, XXX, XXX,
+   ShiftToLayer(MY_FUNCTION_LR),
+
+   Key_KeypadNumLock, XXX, XXX,         Key_KeypadDivide, Key_KeypadMultiply, Key_KeypadSubtract, XXX,
+   XXX,               XXX, Key_Keypad7, Key_Keypad8,      Key_Keypad9,        Key_KeypadAdd,      XXX,
+                      XXX, Key_Keypad4, Key_Keypad5,      Key_Keypad6,        Key_KeypadEnter,    XXX,
+   XXX,               XXX, Key_Keypad1, Key_Keypad2,      Key_Keypad3,        XXX,                XXX,
+   ___, Key_Spacebar, Key_Keypad0, Key_KeypadDot,
+   ShiftToLayer(MY_FUNCTION_LR)),
+
 
   [FUNCTION] =  KEYMAP_STACKED
   (___,      Key_F1,           Key_F2,      Key_F3,     Key_F4,        Key_F5,           XXX,
@@ -228,10 +262,10 @@ KEYMAPS(
    Key_LeftAlt, Key_Backspace, Key_LeftShift, Key_LeftControl,
    XXX,
 
-   M(MACRO_ANY), Key_F6,           Key_F7,               Key_F8,  Key_F9,  Key_F10,                 XXX,
-   XXX,          Key_F16,          Key_F17,              Key_F18, Key_F19, Key_F20,                 XXX,
-                 XXX,              M(MACRO_MODE_DVORAK), XXX,     XXX,     M(MACRO_MODE_MY_QWERTY), XXX,
-   XXX,          M(MACRO_MODE_DF), XXX,                  XXX,     XXX,     M(MACRO_MODE_QWERTY),    XXX,
+   M(MACRO_ANY), Key_F6,           Key_F7,                 Key_F8,  Key_F9,  Key_F10,                 XXX,
+   XXX,          Key_F16,          Key_F17,                Key_F18, Key_F19, Key_F20,                 XXX,
+                 XXX,              M(MACRO_MODE_DVORAK),   XXX,     XXX,     M(MACRO_MODE_MY_QWERTY), XXX,
+   XXX,          M(MACRO_MODE_DF), M(MACRO_MODE_EPISTORY), XXX,     XXX,     M(MACRO_MODE_QWERTY),    XXX,
    Key_RightControl, Key_RightShift, Key_PcApplication, Key_RightAlt,
    XXX)
 
@@ -325,6 +359,7 @@ FC_KEYCOLOR(M(MACRO_DESKTOP_RIGHT), MyColorMap::attentionTertiaryColor)
 FC_GROUPKEY(M(MACRO_MODE_DVORAK))
 FC_GROUPKEY(M(MACRO_MODE_GAMING))
 FC_GROUPKEY(M(MACRO_MODE_DF))
+FC_GROUPKEY(M(MACRO_MODE_EPISTORY))
 FC_KEYCOLOR(M(MACRO_MODE_MY_QWERTY), green)
 
 FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
@@ -424,6 +459,10 @@ static void modeSwitch(uint8_t macroIndex, uint8_t keyState)
     Layer.on(MY_QWERTY);
     Layer.on(DWARF_FORTRESS);
     break;
+  case MACRO_MODE_EPISTORY:
+    Layer.on(DVORAK);
+    Layer.on(EPISTORY);
+    break;
   }
 }
 
@@ -480,6 +519,7 @@ const macro_t* macroAction(uint8_t macroIndex, uint8_t keyState)
   case MACRO_MODE_MY_QWERTY:
   case MACRO_MODE_QWERTY:
   case MACRO_MODE_DF:
+  case MACRO_MODE_EPISTORY:
     modeSwitch(macroIndex, keyState);
     break;
 

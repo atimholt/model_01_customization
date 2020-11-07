@@ -67,6 +67,9 @@
 // Support for USB quirks, like changing the key state report protocol
 #include "Kaleidoscope-USB-Quirks.h"
 
+// Key Layout
+//------------
+
 /// Just a list of all the macros used by the Model 01's firmware.
 ///
 /// The names aren't particularly important. What is important is that each
@@ -88,7 +91,6 @@ enum MyMacros
   /// The fabled "any" key. Types a random alphanumeric character.
   MACRO_ANY
 };
-
 
 
 /// The Model 01's key layouts are defined as 'keymaps'. By default, there are three
@@ -190,11 +192,18 @@ KEYMAPS(
    Key_PcApplication,          Consumer_Mute,          Consumer_VolumeDecrement, Consumer_VolumeIncrement, ___,             Key_Backslash,    Key_Pipe,
    ___, ___, Key_Enter, ___,
    ___)
+
 ) // KEYMAPS
 
 // clang-format on
 // Re-enable astyle's indent enforcement.
 // *INDENT-ON*
+
+//   Macros
+//  --------
+
+//     Per-Macro Definitions
+//    -----------------------
 
 /// Handles the 'firmware version info' macro.
 ///
@@ -226,10 +235,13 @@ anyKeyMacro(uint8_t keyState)
     toggledOn = true;
   }
 
-  if (keyIsPressed(keyState))
+  if (keyIsPressed(keyState)) {
     Kaleidoscope.hid().keyboard().pressKey(lastKey, toggledOn);
+  }
 }
 
+//     Meta-Macro Definitions
+//    ------------------------
 
 /// Dispatches keymap events that are tied to a macro to that macro.
 ///
@@ -255,6 +267,8 @@ macroAction(uint8_t macroIndex, uint8_t keyState)
   return MACRO_NONE;
 }
 
+// Plugin Settings
+//-----------------
 
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
@@ -269,8 +283,7 @@ static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 160, 0);
 //static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 170);
 //static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
 
-/// \brief  Toggles the LEDs off when the host goes to sleep, and turns them
-///   back on when it wakes up.
+/// Makes LEDs power state correspond to keyboard's wake state.
 ///
 /// \TODO  Use a using declaration, maybe even a using enum (C++20).
 ///
@@ -297,6 +310,11 @@ toggleLedsOnSuspendResume(
 /// \brief  Dispatches power management events (suspend, resume, and sleep) to
 ///   other functions that perform action based on these events.
 ///
+/// \note  I don't think this does anything, nor that it ever has. If a keyboard
+///   went to sleep when your computer did, you couldn't wake the computer with
+///   the it!
+///
+inline
 void
 hostPowerManagementEventHandler(
   kaleidoscope::plugin::HostPowerManagement::Event event)
@@ -350,6 +368,9 @@ USE_MAGIC_COMBOS(
   , //                                       Left Fn + Prog + LED
   {.action = enterHardwareTestMode,  .keys={ R3C6    , R0C0 , R0C6  }}
 );
+
+//   Initialize Plugin System
+//  --------------------------
 
 /// Initialize Kaleidoscope plugins.
 ///
@@ -430,6 +451,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   USBQuirks
 );
 
+// Special Functions
+//-------------------
+
 void
 setup()
 {
@@ -469,6 +493,9 @@ loop()
 {
   Kaleidoscope.loop();
 }
+
+//---
+//
 
 // vim: set ft=arduino.cpp et ts=2 sw=2 sts=2 :
 

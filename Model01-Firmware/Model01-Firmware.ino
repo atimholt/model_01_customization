@@ -82,6 +82,8 @@
 // Support for USB quirks, like changing the key state report protocol
 #include "Kaleidoscope-USB-Quirks.h"
 
+#include "Kaleidoscope-TopsyTurvy.h"
+
 // Key Layout
 //------------
 
@@ -163,7 +165,7 @@ enum Layers
 KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
-  (___, LSHIFT(Key_1), LSHIFT(Key_2), LSHIFT(Key_3), LSHIFT(Key_4), LSHIFT(Key_5), Key_LEDEffectPrevious,
+  (___, TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(4), TOPSY(5), Key_LEDEffectPrevious,
    Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
    Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
    Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
@@ -171,7 +173,7 @@ KEYMAPS(
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    ShiftToLayer(NAVNUM),
 
-   M(MACRO_ANY), LSHIFT(Key_6), LSHIFT(Key_7), LSHIFT(Key_8), LSHIFT(Key_9), LSHIFT(Key_0), LockLayer(QWERTY),
+   M(MACRO_ANY), TOPSY(6), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(0), LockLayer(QWERTY),
    Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
                    Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
    Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
@@ -485,7 +487,9 @@ KALEIDOSCOPE_INIT_PLUGINS(
   // comfortable - or able - to do automatically, but can be useful
   // nevertheless. Such as toggling the key report protocol between Boot (used
   // by BIOSes) and Report (NKRO).
-  USBQuirks
+  USBQuirks,
+
+  TopsyTurvy
 );
 
 // Special Functions

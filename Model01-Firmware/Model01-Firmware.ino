@@ -166,17 +166,17 @@ KEYMAPS(
 
   [DVORAK] = KEYMAP_STACKED
   (___, TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(4), TOPSY(5), Key_LEDEffectPrevious,
-   Key_Backtick, Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   Key_PageUp,   Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   Key_PageDown, Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
+   Key_Backtick,           Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
+   LSHIFT(LCTRL(Key_Tab)), Key_A,         Key_O,     Key_E,      Key_U, Key_I,
+   LCTRL(Key_Tab),         Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
 
    Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
    ShiftToLayer(NAVNUM),
 
    M(MACRO_ANY), TOPSY(6), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(0), LockLayer(QWERTY),
-   Key_Enter,      Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                   Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt,   Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
+   Key_Enter,    Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
+                 Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
+   Key_RightAlt, Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
 
    Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
    ShiftToLayer(NAVNUM)),

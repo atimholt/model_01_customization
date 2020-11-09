@@ -4,6 +4,24 @@
 /// See "LICENSE" for license details
 ///
 /// Modified by Tim Holt
+///
+/// Hardware Info:
+/// Processor: ATMEGA32U4
+///
+/// | Board Name          | FQBN                            | Core           |
+/// |---------------------|---------------------------------|----------------|
+/// | Keyboardio Imago    | keyboardio:avr:keyboardio_imago | keyboardio:avr |
+/// | Keyboardio Model 01 | keyboardio:avr:model01          | keyboardio:avr |
+///
+/// (above info derived from the command "`arduino-cli board list`". I'm not
+/// sure of the (non)significance of the imago, so I'm leaving it here for now.
+///
+/// (in arduino-cli.yaml)
+/// ```yaml
+/// board_manager:
+///    additional_urls:
+///     - https://raw.githubusercontent.com/keyboardio/boardsmanager/master/package_keyboardio_index.json
+/// ```
 
 // Defines
 //---------

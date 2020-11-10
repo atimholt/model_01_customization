@@ -180,10 +180,10 @@ macroAction(uint8_t macroIndex, uint8_t keyState)
 ///    https://github.com/keyboardio/Kaleidoscope/blob/master/src/kaleidoscope/key_defs_keymaps.h
 ///
 /// Additional things that should be documented here include
-///   using ___ to let keypresses fall through to the previously active layer
-///   using XXX to mark a keyswitch as 'blocked' on this layer
-///   using ShiftToLayer() and LockLayer() keys to change the active keymap.
-///   keeping NUM and FN consistent and accessible on all layers
+///  * using ___ to let keypresses fall through to the previously active layer
+///  * using XXX to mark a keyswitch as 'blocked' on this layer
+///  * using ShiftToLayer() and LockLayer() keys to change the active keymap.
+///  * keeping NUM and FN consistent and accessible on all layers
 ///
 /// The PROG key is special, since it is how you indicate to the board that you
 /// want to flash the firmware. However, it can be remapped to a regular key.

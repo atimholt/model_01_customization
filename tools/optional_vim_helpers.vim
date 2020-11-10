@@ -78,7 +78,7 @@ function! s:Fold.HeaderComments()
       \ .     s:slashx2 . '\1'                      . '-{3,}'  . '$'
       \ .   '|'
       \ .     s:slashx2 . '(%(  ){,'. l:level . '})'. '-{3,}'  . '\n'
-      \ .     s:slashx2 . '\zs%(\1 \S.*)?\s*'                  . '$'
+      \ .     s:slashx2 . '\zs%(\2 \S.*)?\s*'                  . '$'
       \ .   '|'
       \ .     '%$'
       \ .   ')'

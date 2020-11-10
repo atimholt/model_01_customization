@@ -160,84 +160,91 @@ enum Layers
 
 // This comment toggles astyle off
 // *INDENT-OFF*
+
 // clang-format off
 
+// note: When editing the keymap, change tabstop to 30 (or use smart tabstops).
+// easy-grab vim commands (yi`:<c-r>"<cr>): `set ts=30` `set ts=2`
 KEYMAPS(
 
-  [DVORAK] = KEYMAP_STACKED
-  (___, TOPSY(1), TOPSY(2), TOPSY(3), TOPSY(4), TOPSY(5), Key_LEDEffectPrevious,
-   Key_Backtick,           Key_Quote,     Key_Comma, Key_Period, Key_P, Key_Y, Key_Tab,
-   LSHIFT(LCTRL(Key_Tab)), Key_A,         Key_O,     Key_E,      Key_U, Key_I,
-   LCTRL(Key_Tab),         Key_Semicolon, Key_Q,     Key_J,      Key_K, Key_X, Key_Escape,
+  [DVORAK] = KEYMAP_STACKED(
+    ___,	TOPSY(1),	TOPSY(2),	TOPSY(3),	TOPSY(4),	TOPSY(5),	Key_LEDEffectPrevious,
+    Key_Backtick,	Key_Quote,	Key_Comma,	Key_Period,	Key_P,	Key_Y,	Key_Tab,
+    LSHIFT(LCTRL(Key_Tab)),	Key_A,	Key_O,	Key_E,	Key_U,	Key_I,
+    LCTRL(Key_Tab),	Key_Semicolon,	Key_Q,	Key_J,	Key_K,	Key_X,	Key_Escape,
 
-   Key_LeftGui, Key_Backspace, Key_LeftShift, Key_LeftControl,
-   ShiftToLayer(NAVNUM),
+    Key_LeftGui,	Key_Backspace,	Key_LeftShift,	Key_LeftControl,
+    ShiftToLayer(NAVNUM),
 
-   M(MACRO_ANY), TOPSY(6), TOPSY(7), TOPSY(8), TOPSY(9), TOPSY(0), LockLayer(QWERTY),
-   Key_Enter,    Key_F, Key_G, Key_C, Key_R, Key_L, Key_Slash,
-                 Key_D, Key_H, Key_T, Key_N, Key_S, Key_Minus,
-   Key_RightAlt, Key_B, Key_M, Key_W, Key_V, Key_Z, Key_Equals,
+    M(MACRO_ANY),	TOPSY(6),	TOPSY(7),	TOPSY(8),	TOPSY(9),	TOPSY(0),	LockLayer(QWERTY),
+    Key_Enter,	Key_F,	Key_G,	Key_C,	Key_R,	Key_L,	Key_Slash,
+    	Key_D,	Key_H,	Key_T,	Key_N,	Key_S,	Key_Minus,
+    Key_RightAlt,	Key_B,	Key_M,	Key_W,	Key_V,	Key_Z,	Key_Equals,
 
-   Key_RightControl, Key_RightShift, Key_Spacebar, Key_LeftAlt,
-   ShiftToLayer(NAVNUM)),
-
-
-  [QWERTY] = KEYMAP_STACKED
-  (___, ___  , ___  , ___  , ___  , ___  , ___,
-   ___, Key_Q, Key_W, Key_E, Key_R, Key_T, ___,
-   ___, Key_A, Key_S, Key_D, Key_F, Key_G,
-   ___, Key_Z, Key_X, Key_C, Key_V, Key_B, ___,
-
-   ___, ___, ___, ___,
-   ___,
-
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, Key_Y, Key_U, Key_O, Key_I, Key_P, Key_Equals,
-        Key_H, Key_J, Key_K, Key_L, Key_Semicolon, Key_Quote,
-   ___, Key_N, Key_M, Key_Comma, Key_Period, Key_Slash, Key_Minus,
-
-   ___, ___, ___, ___,
-   ___),
+    Key_RightControl,	Key_RightShift,	Key_Spacebar,	Key_LeftAlt,
+    ShiftToLayer(NAVNUM)
+  ),
 
 
-  [NAVNUM] =  KEYMAP_STACKED
-  (XXX, ___              , ___          , ___        , ___           , ___,                ___,
-   ___, ___              , Key_Home     , Key_UpArrow, Key_PageUp    , ___,                ___,
-   ___, Key_LeftBracket  , Key_LeftArrow, Key_Delete , Key_RightArrow, Key_RightBracket,
-   ___, LSHIFT(Key_Comma), Key_End      , Key_DnArrow, Key_PageDown  , LSHIFT(Key_Period), ___,
+  [QWERTY] = KEYMAP_STACKED(
+    ___,	___  ,	___  ,	___  ,	___  ,	___  ,	___,
+    ___,	Key_Q,	Key_W,	Key_E,	Key_R,	Key_T,	___,
+    ___,	Key_A,	Key_S,	Key_D,	Key_F,	Key_G,
+    ___,	Key_Z,	Key_X,	Key_C,	Key_V,	Key_B,	___,
 
-   ___, ___, ___, ___,
-   ShiftToLayer(FUNCTION),
+    ___,	___,	___,	___,
+    ___,
 
-   Consumer_Mute, Consumer_VolumeIncrement, Key_KeypadNumLock, Key_KeypadDivide, Key_KeypadMultiply, Key_KeypadSubtract, ___,
-   Key_KeypadEnter, Consumer_VolumeDecrement, Key_Keypad7, Key_Keypad8, Key_Keypad9, Key_KeypadAdd, Key_Backslash,
-                  Key_LeftParen, Key_Keypad4, Key_Keypad5,      Key_Keypad6,              Key_RightParen, Key_Pipe,
-   ___, Key_LeftCurlyBracket, Key_Keypad1, Key_Keypad2, Key_Keypad3, Key_RightCurlyBracket, Key_CapsLock,
+    ___,	___,	___,	___,	___,	___,	___,
+    ___,	Key_Y,	Key_U,	Key_O,	Key_I,	Key_P,	Key_Equals,
+    	Key_H,	Key_J,	Key_K,	Key_L,	Key_Semicolon,	Key_Quote,
+    ___,	Key_N,	Key_M,	Key_Comma,	Key_Period,	Key_Slash,	Key_Minus,
 
-   ___, Key_KeypadDot, Key_Keypad0, ___,
-   ShiftToLayer(FUNCTION)),
+    ___,	___,	___,	___,
+    ___
+  ),
 
 
-  [FUNCTION] =  KEYMAP_STACKED
-  (M(MACRO_VERSION_INFO),
-        Key_F1 , Key_F2 , Key_F3 , Key_F4 , Key_F5 , XXX,
-   XXX, Key_F11, Key_F12, Key_F13, Key_F14, Key_F15, XXX,
-   XXX, Key_F21, Key_F22, Key_F23, Key_F24, XXX    ,
-   XXX, Key_PrintScreen, Key_Insert, Key_Pause, XXX, XXX, XXX,
-   ___, ___, ___, ___,
-   XXX,
+  [NAVNUM] = KEYMAP_STACKED(
+    XXX,	___              ,	___          ,	___        ,	___           ,	___,	___,
+    ___,	___              ,	Key_Home     ,	Key_UpArrow,	Key_PageUp    ,	___,	___,
+    ___,	Key_LeftBracket  ,	Key_LeftArrow,	Key_Delete ,	Key_RightArrow,	Key_RightBracket,
+    ___,	LSHIFT(Key_Comma),	Key_End      ,	Key_DnArrow,	Key_PageDown  ,	LSHIFT(Key_Period),	___,
 
-   XXX, Key_F6 , Key_F7 , Key_F8 , Key_F9 , Key_F10, XXX,
-   XXX, Key_F16, Key_F17, Key_F18, Key_F19, Key_F20, XXX,
-        Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, XXX, XXX,
-   XXX, XXX, XXX, LGUI(LCTRL(Key_LeftArrow)), LGUI(LCTRL(Key_RightArrow)), XXX, XXX,
+    ___,	___,	___,	___,
+    ShiftToLayer(FUNCTION),
 
-   ___, ___, Key_Space, Key_RightAlt,
-   XXX)
+    Consumer_Mute,	Consumer_VolumeIncrement,	Key_KeypadNumLock,	Key_KeypadDivide,	Key_KeypadMultiply,	Key_KeypadSubtract,	___,
+    Key_KeypadEnter,	Consumer_VolumeDecrement,	Key_Keypad7,	Key_Keypad8,	Key_Keypad9,	Key_KeypadAdd,	Key_Backslash,
+    	Key_LeftParen,	Key_Keypad4,	Key_Keypad5,	Key_Keypad6,	Key_RightParen,	Key_Pipe,
+    ___,	Key_LeftCurlyBracket,	Key_Keypad1,	Key_Keypad2,	Key_Keypad3,	Key_RightCurlyBracket,	Key_CapsLock,
+
+    ___,	Key_KeypadDot,	Key_Keypad0,	___,
+    ShiftToLayer(FUNCTION)
+  ),
+
+
+  [FUNCTION] =  KEYMAP_STACKED(
+    M(MACRO_VERSION_INFO),	Key_F1 ,	Key_F2 ,	Key_F3 ,	Key_F4 ,	Key_F5 ,	XXX,
+    XXX,	Key_F11,	Key_F12,	Key_F13,	Key_F14,	Key_F15,	XXX,
+    XXX,	Key_F21,	Key_F22,	Key_F23,	Key_F24,	XXX    ,
+    XXX,	Key_PrintScreen,	Key_Insert,	Key_Pause,	XXX,	XXX,	XXX,
+    ___,	___,	___,	___,
+    XXX,
+
+    XXX,	Key_F6 ,	Key_F7 ,	Key_F8 ,	Key_F9 ,	Key_F10,	XXX,
+    XXX,	Key_F16,	Key_F17,	Key_F18,	Key_F19,	Key_F20,	XXX,
+    	Key_LeftArrow,	Key_DownArrow,	Key_UpArrow,	Key_RightArrow,	XXX,	XXX,
+    XXX,	XXX,	XXX,	LGUI(LCTRL(Key_LeftArrow)),	LGUI(LCTRL(Key_RightArrow)),	XXX,	XXX,
+
+    ___,	___,	Key_Space,	Key_RightAlt,
+    XXX
+  )
 
 ) // KEYMAPS
 
 // clang-format on
+
 // Re-enable astyle's indent enforcement.
 // *INDENT-ON*
 
@@ -315,15 +322,17 @@ macroAction(uint8_t macroIndex, uint8_t keyState)
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
 // Keyboardio Model 01.
+namespace SolidColor {
+  using kaleidoscope::plugin::LEDSolidColor;
 
-
-static kaleidoscope::plugin::LEDSolidColor solidRed(160, 0, 0);
-static kaleidoscope::plugin::LEDSolidColor solidOrange(140, 70, 0);
-//static kaleidoscope::plugin::LEDSolidColor solidYellow(130, 100, 0);
-static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 160, 0);
-//static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 70, 130);
-//static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 170);
-//static kaleidoscope::plugin::LEDSolidColor solidViolet(130, 0, 120);
+  static LEDSolidColor red(    160,   0,   0);
+  static LEDSolidColor orange( 140,  70,   0);
+  static LEDSolidColor yellow( 130, 100,   0);
+  static LEDSolidColor green(    0, 160,   0);
+  static LEDSolidColor blue(     0,  70, 130);
+  static LEDSolidColor indigo(   0,   0, 170);
+  static LEDSolidColor violet( 130,   0, 120);
+} //namespace SolidColor
 
 /// Makes LEDs power state correspond to keyboard's wake state.
 ///
@@ -462,7 +471,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
   LEDRainbowWaveEffect,
 
   // These static effects turn your keyboard's LEDs a variety of colors
-  solidRed, solidOrange, solidGreen,
+  SolidColor::red, SolidColor::orange, SolidColor::green,
 
   // The LED Palette Theme plugin provides a shared palette for other plugins,
   // like Colormap below

@@ -52,6 +52,8 @@
 //       Regarding lighting
 //      --------------------
 
+#include <Kaleidoscope-LEDControl.h>
+
 #include <Kaleidoscope-HostPowerManagement.h> // Turn off LEDs during sleep.
 #include <Kaleidoscope-LEDEffect-BootGreeting.h> // "it's working" pulsing light.
 
@@ -64,11 +66,10 @@
 //     Lighting
 //    ----------
 
-#include <Kaleidoscope-LEDControl.h>
-
-#include <Kaleidoscope-LEDEffect-SolidColor.h>
-#include <Kaleidoscope-LEDEffect-Rainbow.h>
 #include <Kaleidoscope-Colormap.h>
+#include <Kaleidoscope-LED-Wavepool.h> // Now comes BUNDLED!! :D
+#include <Kaleidoscope-LEDEffect-Rainbow.h>
+#include <Kaleidoscope-LEDEffect-SolidColor.h>
 
 //     Augmented Functionality
 //    -------------------------
@@ -154,12 +155,12 @@ enum Layers
 
 // clang-format off
 
-// note: When editing the keymap, change tabstop to 30 (or use smart tabstops).
-// easy-grab vim commands (yi`:<c-r>"<cr>): `set ts=30` `set ts=2`
 KEYMAPS(
+  // note: When editing the keymap, change tabstop to 30 (or use smart tabstops).
+  // easy-grab vim commands (yi`:<c-r>"<cr>): `set ts=30` `set ts=2`
 
   [DVORAK] = KEYMAP_STACKED(
-    ___,	TOPSY(1),	TOPSY(2),	TOPSY(3),	TOPSY(4),	TOPSY(5),	Key_LEDEffectPrevious,
+    ___,	TOPSY(1),	TOPSY(2),	TOPSY(3),	TOPSY(4),	TOPSY(5),	Key_LEDEffectNext,
     Key_Backtick,	Key_Quote,	Key_Comma,	Key_Period,	Key_P,	Key_Y,	Key_Tab,
     LSHIFT(LCTRL(Key_Tab)),	Key_A,	Key_O,	Key_E,	Key_U,	Key_I,
     LCTRL(Key_Tab),	Key_Semicolon,	Key_Q,	Key_J,	Key_K,	Key_X,	Key_Escape,
@@ -197,7 +198,7 @@ KEYMAPS(
 
 
   [NAVNUM] = KEYMAP_STACKED(
-    XXX,	___              ,	___          ,	___        ,	___           ,	___,	___,
+    XXX,	___              ,	___          ,	___        ,	___           ,	___,	Key_LEDEffectPrevious,
     ___,	___              ,	Key_Home     ,	Key_UpArrow,	Key_PageUp    ,	___,	___,
     ___,	Key_LeftBracket  ,	Key_LeftArrow,	Key_Delete ,	Key_RightArrow,	Key_RightBracket,
     ___,	LSHIFT(Key_Comma),	Key_End      ,	Key_DnArrow,	Key_PageDown  ,	LSHIFT(Key_Period),	___,
@@ -310,6 +311,12 @@ macroAction(uint8_t macroIndex, uint8_t keyState)
 // Plugin Settings
 //-----------------
 
+//   Individual Plugins
+//  --------------------
+
+//     LEDSolidColor
+//    ---------------
+
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
 // Keyboardio Model 01.
@@ -324,6 +331,9 @@ namespace SolidColor {
   static LEDSolidColor indigo(   0,   0, 170);
   static LEDSolidColor violet( 130,   0, 120);
 } //namespace SolidColor
+
+//     HostPowerManagement
+//    ---------------------
 
 /// Makes LEDs power state correspond to keyboard's wake state.
 ///
@@ -364,8 +374,8 @@ hostPowerManagementEventHandler(
   toggleLedsOnSuspendResume(event);
 }
 
-//   Magic Combo Stuff
-//  -------------------
+//     Magic Combo
+//    -------------
 
 /// Just a list of all the magic combos used by the Model 01's firmware.
 ///
@@ -383,8 +393,8 @@ enum MagicCombos
   COMBO_ENTER_TEST_MODE
 };
 
-//     Wrappers
-//    ----------
+//       Wrappers
+//      ----------
 
 /// Toggles the keyboard protocol via USBQuirks, and wraps it within
 /// a function with an unused argument, to match what MagicCombo expects.
@@ -401,6 +411,9 @@ enterHardwareTestMode([[maybe_unused]] uint8_t combo_index)
   HardwareTestMode.runTests();
 }
 
+//      ----------
+//       Wrappers
+
 /// Magic combo list, a list of key combo and action pairs the firmware should
 /// recognise.
 ///
@@ -416,77 +429,28 @@ USE_MAGIC_COMBOS(
 
 /// Initialize Kaleidoscope plugins.
 ///
-/// First, tell Kaleidoscope which plugins you want to use.
-/// The order can be important. For example, LED effects are
-/// added in the order they're listed here.
+/// Tell Kaleidoscope which plugins you want to use. The order can be important.
+/// For example, LED effects are added in the order they're listed here.
 ///
 KALEIDOSCOPE_INIT_PLUGINS(
-  // The EEPROMSettings & EEPROMKeymap plugins make it possible to have an
-  // editable keymap in EEPROM.
-  EEPROMSettings,
-  EEPROMKeymap,
+  EEPROMSettings, EEPROMKeymap,
 
-  // Focus allows bi-directional communication with the host, and is the
-  // interface through which the keymap in EEPROM can be edited.
-  Focus,
-
-  // FocusSettingsCommand adds a few Focus commands, intended to aid in
-  // changing some settings of the keyboard, such as the default layer (via the
-  // `settings.defaultLayer` command)
-  FocusSettingsCommand,
-
-  // FocusEEPROMCommand adds a set of Focus commands, which are very helpful in
-  // both debugging, and in backing up one's EEPROM contents.
-  FocusEEPROMCommand,
-
-  // The boot greeting effect pulses the LED button for 10 seconds after the
-  // keyboard is first connected
+  // TODO: repurpose Focus (it's mostly a Chrysalis thing).
+  Focus, FocusSettingsCommand, FocusEEPROMCommand,
+  HardwareTestMode,
   BootGreetingEffect,
 
-  // The hardware test mode, which can be invoked by tapping Prog, LED and the
-  // left Fn button at the same time.
-  HardwareTestMode,
-
-  // LEDControl provides support for other LED modes
   LEDControl,
 
-  // We start with the LED effect that turns off all the LEDs.
-  LEDOff,
+  LEDOff, // Should be first!
+  LEDPaletteTheme, ColormapEffect,
+  WavepoolEffect, LEDRainbowWaveEffect, LEDRainbowEffect,
+  SolidColor::red, SolidColor::green, SolidColor::indigo,
 
-  // The rainbow effect changes the color of all of the keyboard's keys at the same time
-  // running through all the colors of the rainbow.
-  LEDRainbowEffect,
-
-  // The rainbow wave effect lights up your keyboard with all the colors of a rainbow
-  // and slowly moves the rainbow across your keyboard
-  LEDRainbowWaveEffect,
-
-  // These static effects turn your keyboard's LEDs a variety of colors
-  SolidColor::red, SolidColor::orange, SolidColor::green,
-
-  // The LED Palette Theme plugin provides a shared palette for other plugins,
-  // like Colormap below
-  LEDPaletteTheme,
-
-  // The Colormap effect makes it possible to set up per-layer colormaps
-  ColormapEffect,
-
-  // The macros plugin adds support for macros
   Macros,
 
-  // The HostPowerManagement plugin allows us to turn LEDs off when then host
-  // goes to sleep, and resume them when it wakes up.
   HostPowerManagement,
-
-  // The MagicCombo plugin lets you use key combinations to trigger custom
-  // actions - a bit like Macros, but triggered by pressing multiple keys at the
-  // same time.
   MagicCombo,
-
-  // The USBQuirks plugin lets you do some things with USB that we aren't
-  // comfortable - or able - to do automatically, but can be useful
-  // nevertheless. Such as toggling the key report protocol between Boot (used
-  // by BIOSes) and Report (NKRO).
   USBQuirks,
 
   TopsyTurvy
@@ -495,34 +459,56 @@ KALEIDOSCOPE_INIT_PLUGINS(
 // Special Functions
 //-------------------
 
-void
-setup()
-{
-  // First, call Kaleidoscope's internal setup function
-  Kaleidoscope.setup();
+//   Helper Functions
+//  ------------------
 
+void inline
+setupWavepoolEffect()
+{
+  // Default: 5'000 milliseconds (0 is off)
+  WavepoolEffect.idle_timeout = 0 /* milliseconds */;
+
+  // Default: WavepoolEffect.rainbow_hue
+  WavepoolEffect.ripple_hue = 0;
+}
+
+void inline
+setupLEDRainbow()
+{
   // Defaults were 150 (out of 255)
   LEDRainbowEffect.brightness(100);
   LEDRainbowWaveEffect.brightness(100);
+}
 
+void
+setupBoringCorePlugins()
+{
   // Set the action key the test mode should listen for.
   HardwareTestMode.setActionKey(R3C6 /*Left Fn*/);
 
-  // We want to make sure that the firmware starts with LED effects off
-  // This avoids over-taxing devices that don't have a lot of power to share
-  // with USB devices
+  // We want to make sure that the firmware starts with LED effects off.
+  // (in case of low-powered devices!)
   LEDOff.activate();
+}
 
-  // To make the keymap editable without flashing new firmware, we store
-  // additional layers in EEPROM. For now, we reserve space for five layers. If
-  // one wants to use these layers, just set the default layer to one in EEPROM,
-  // by using the `settings.defaultLayer` Focus command, or by using the
-  // `keymap.onlyCustom` command to use EEPROM layers only.
+//  ------------------
+//   Helper Functions
+
+void
+setup()
+{
+  // Must be first!
+  Kaleidoscope.setup();
+
+  setupWavepoolEffect(); // Should be setup earlier than most!
+  setupLEDRainbow();
+  setupBoringCorePlugins();
+
+  /// \TODO  Remove EEPROMKeymap.
   EEPROMKeymap.setup(5);
 
-  // We need to tell the Colormap plugin how many layers we want to have custom
-  // maps for. To make things simple, we set it to five layers, which is how
-  // many editable layers we have (see above).
+  // Should probably match the number of layers.
+  // Leaving it on default (5) for now because of Colormap (will fix later).
   ColormapEffect.max_layers(5);
 }
 

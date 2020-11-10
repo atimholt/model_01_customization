@@ -35,54 +35,45 @@
 // Includes
 //----------
 
-//   Kaleidoscope core & plugins
-//  -----------------------------
+#include <Kaleidoscope.h>
 
-// The Kaleidoscope core
-#include "Kaleidoscope.h"
+//   Plugins
+//  ---------
 
-// Support for storing the keymap in EEPROM
-#include "Kaleidoscope-EEPROM-Settings.h"
-#include "Kaleidoscope-EEPROM-Keymap.h"
+//     Core Functionality
+//    --------------------
 
-// Support for communicating with the host via a simple Serial protocol
-#include "Kaleidoscope-FocusSerial.h"
+#include <Kaleidoscope-EEPROM-Settings.h>
+#include <Kaleidoscope-EEPROM-Keymap.h>
+#include <Kaleidoscope-FocusSerial.h>
+#include <Kaleidoscope-HardwareTestMode.h>
+#include <Kaleidoscope-Macros.h>
 
-// Support for macros
-#include "Kaleidoscope-Macros.h"
+//       Regarding lighting
+//      --------------------
 
-// Support for controlling the keyboard's LEDs
-#include "Kaleidoscope-LEDControl.h"
+#include <Kaleidoscope-HostPowerManagement.h> // Turn off LEDs during sleep.
+#include <Kaleidoscope-LEDEffect-BootGreeting.h> // "it's working" pulsing light.
 
-// Support for the "Boot greeting" effect, which pulses the 'LED' button for 10s
-// when the keyboard is connected to a computer (or that computer is powered on)
-#include "Kaleidoscope-LEDEffect-BootGreeting.h"
+//       Helper(s)
+//      -----------
 
-// Support for LED modes that set all LEDs to a single color
-#include "Kaleidoscope-LEDEffect-SolidColor.h"
+#include <Kaleidoscope-MagicCombo.h>
+#include <Kaleidoscope-USB-Quirks.h>
 
-// Support for LED modes that pulse the keyboard's LED in a rainbow pattern
-#include "Kaleidoscope-LEDEffect-Rainbow.h"
+//     Lighting
+//    ----------
 
-// Support for shared palettes for other plugins, like Colormap below
-#include "Kaleidoscope-LED-Palette-Theme.h"
+#include <Kaleidoscope-LEDControl.h>
 
-// Support for an LED mode that lets one configure per-layer color maps
-#include "Kaleidoscope-Colormap.h"
+#include <Kaleidoscope-LEDEffect-SolidColor.h>
+#include <Kaleidoscope-LEDEffect-Rainbow.h>
+#include <Kaleidoscope-Colormap.h>
 
-// Support for Keyboardio's internal keyboard testing mode
-#include "Kaleidoscope-HardwareTestMode.h"
+//     Augmented Functionality
+//    -------------------------
 
-// Support for host power management (suspend & wakeup)
-#include "Kaleidoscope-HostPowerManagement.h"
-
-// Support for magic combos (key chords that trigger an action)
-#include "Kaleidoscope-MagicCombo.h"
-
-// Support for USB quirks, like changing the key state report protocol
-#include "Kaleidoscope-USB-Quirks.h"
-
-#include "Kaleidoscope-TopsyTurvy.h"
+#include <Kaleidoscope-TopsyTurvy.h> // Shifted keys, unshifted by shift.
 
 // Key Layout
 //------------

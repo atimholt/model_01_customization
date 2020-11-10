@@ -286,7 +286,7 @@ KEYMAPS(
 
     XXX,	Key_F6 ,	Key_F7 ,	Key_F8 ,	Key_F9 ,	Key_F10,	XXX,
     XXX,	Key_F16,	Key_F17,	Key_F18,	Key_F19,	Key_F20,	XXX,
-    	Key_LeftArrow,	Key_DownArrow,	Key_UpArrow,	Key_RightArrow,	XXX,	XXX,
+    	XXX,	XXX,	Consumer_PlaySlashPause,	XXX,	XXX,	XXX,
     XXX,	XXX,	XXX,	LGUI(LCTRL(Key_LeftArrow)),	LGUI(LCTRL(Key_RightArrow)),	XXX,	XXX,
 
     ___,	___,	Key_Space,	Key_RightAlt,

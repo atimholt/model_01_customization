@@ -26,6 +26,8 @@
 // Includes
 //----------
 
+#include <stdint.h>
+
 #include <Kaleidoscope.h>
 
 //   Plugins
@@ -475,14 +477,32 @@ KALEIDOSCOPE_INIT_PLUGINS(
 //   Helper Functions
 //  ------------------
 
+namespace Hue {
+  inline constexpr uint8_t toWavepoolHue(float hue)
+  {
+    return UINT8_MAX * hue;
+  }
+  // Names are approximate to protect the innocent.
+  // Primary
+  static const auto red    = toWavepoolHue(0.0 / 3.0);
+  static const auto green  = toWavepoolHue(1.0 / 3.0);
+  static const auto blue   = toWavepoolHue(2.0 / 3.0);
+
+  // Secondary
+  static const auto yellow = toWavepoolHue(0.5 / 3.0);
+  static const auto cyan   = toWavepoolHue(1.5 / 3.0);
+  static const auto purple = toWavepoolHue(2.5 / 3.0);
+}
+
 void inline
 setupWavepoolEffect()
 {
   // Default: 5'000 milliseconds (0 is off)
-  WavepoolEffect.idle_timeout = 0 /* milliseconds */;
+  WavepoolEffect.idle_timeout = 5'000 /* milliseconds */;
 
-  // Default: WavepoolEffect.rainbow_hue
-  WavepoolEffect.ripple_hue = 0;
+  WavepoolEffect.ripple_hue =
+    //WavepoolEffect.rainbow_hue;  // Default
+    Hue::green;
 }
 
 void inline
@@ -537,5 +557,5 @@ loop()
 //---
 //
 
-// vim: set ft=arduino.cpp et ts=2 sw=2 sts=2 :
+// vim: set ft=arduino.cpp et ts=2 sw=0 sts=0 :
 

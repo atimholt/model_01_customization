@@ -26,10 +26,32 @@
 // Defines
 //---------
 
+#if defined(__cplusplus)
+  //199711L(until C++11), 201103L(C++11), 201402L(C++14), 201703L(C++17), 202002L(C++20)
+  #if __cplusplus   == 199711
+    #define CPLUSPLUS_VERSION "<C++11"
+  #elif __cplusplus == 201103
+    #define CPLUSPLUS_VERSION "C++11"
+  #elif __cplusplus == 201402
+    #define CPLUSPLUS_VERSION "C++14"
+  #elif __cplusplus == 201703
+    #define CPLUSPLUS_VERSION "C++17"
+  #elif __cplusplus == 202002
+    #define CPLUSPLUS_VERSION "C++20"
+  #elif __cplusplus > 202002
+    #define CPLUSPLUS_VERSION ">C++20"
+  #else
+    #define CPLUSPLUS_VERSION "bad value"
+  #endif
+#else
+  #define CPLUSPLUS_VERSION "undefined"
+#endif
+
 #ifndef BUILD_INFORMATION
 #define BUILD_INFORMATION                                                 "\n" \
   "locally built, modified by Tim Holt"                                   "\n" \
-  "compiled " __DATE__ " " __TIME__                                       "\n"
+  "compiled " __DATE__ " " __TIME__                                       "\n" \
+  "C++ version: (" CPLUSPLUS_VERSION ")"                                  "\n"
 #endif
 
 // Includes

@@ -502,7 +502,7 @@ setupWavepoolEffect()
 
   WavepoolEffect.ripple_hue =
     //WavepoolEffect.rainbow_hue;  // Default
-    Hue::green;
+    Hue::cyan;
 }
 
 void inline

@@ -61,6 +61,7 @@
 
 #include <Kaleidoscope-Colormap.h>
 #include <Kaleidoscope-LED-Wavepool.h> // Now comes BUNDLED!! :D
+#include <Kaleidoscope-LEDEffect-Breathe.h>
 #include <Kaleidoscope-LEDEffect-Rainbow.h>
 #include <Kaleidoscope-LEDEffect-SolidColor.h>
 
@@ -459,7 +460,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   LEDOff, // Should be first!
   LEDPaletteTheme, ColormapEffect,
-  WavepoolEffect, LEDRainbowWaveEffect, LEDRainbowEffect,
+  WavepoolEffect, LEDRainbowWaveEffect, LEDRainbowEffect, LEDBreatheEffect,
   SolidColor::red, SolidColor::green, SolidColor::indigo,
 
   Macros,
@@ -478,31 +479,35 @@ KALEIDOSCOPE_INIT_PLUGINS(
 //  ------------------
 
 namespace Hue {
-  inline constexpr uint8_t toWavepoolHue(float hue)
+  inline constexpr uint8_t toHue(float hue)
   {
     return UINT8_MAX * hue;
   }
   // Names are approximate to protect the innocent.
   // Primary
-  static const auto red    = toWavepoolHue(0.0 / 3.0);
-  static const auto green  = toWavepoolHue(1.0 / 3.0);
-  static const auto blue   = toWavepoolHue(2.0 / 3.0);
+  static const auto red    = toHue(0.0 / 3.0);
+  static const auto green  = toHue(1.0 / 3.0);
+  static const auto blue   = toHue(2.0 / 3.0);
 
   // Secondary
-  static const auto yellow = toWavepoolHue(0.5 / 3.0);
-  static const auto cyan   = toWavepoolHue(1.5 / 3.0);
-  static const auto purple = toWavepoolHue(2.5 / 3.0);
+  static const auto yellow = toHue(0.5 / 3.0);
+  static const auto cyan   = toHue(1.5 / 3.0);
+  static const auto purple = toHue(2.5 / 3.0);
+
+  // Other
+  static const auto orange    = toHue(1.0 / 12.0);
+  static const auto redorange = toHue(0.5 / 12.0);
 }
 
 void inline
 setupWavepoolEffect()
 {
   // Default: 5'000 milliseconds (0 is off)
-  WavepoolEffect.idle_timeout = 5'000 /* milliseconds */;
+  WavepoolEffect.idle_timeout = 2'500 /* milliseconds */;
 
   WavepoolEffect.ripple_hue =
-    //WavepoolEffect.rainbow_hue;  // Default
-    Hue::cyan;
+    WavepoolEffect.rainbow_hue;  // Default
+    //Hue::cyan;
 }
 
 void inline
@@ -511,6 +516,12 @@ setupLEDRainbow()
   // Defaults were 150 (out of 255)
   LEDRainbowEffect.brightness(100);
   LEDRainbowWaveEffect.brightness(100);
+}
+
+void inline
+setupLEDBreathe()
+{
+  LEDBreatheEffect.hue = Hue::redorange;
 }
 
 void
@@ -535,6 +546,8 @@ setup()
 
   setupWavepoolEffect(); // Should be setup earlier than most!
   setupLEDRainbow();
+  setupLEDBreathe();
+
   setupBoringCorePlugins();
 
   /// \TODO  Remove EEPROMKeymap.

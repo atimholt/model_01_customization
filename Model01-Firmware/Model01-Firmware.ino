@@ -247,8 +247,8 @@ KEYMAPS(
   [DVORAK] = KEYMAP_STACKED(
     ___,	TOPSY(1),	TOPSY(2),	TOPSY(3),	TOPSY(4),	TOPSY(5),	Key_LEDEffectNext,
     Key_Backtick,	Key_Quote,	Key_Comma,	Key_Period,	Key_P,	Key_Y,	Key_Tab,
-    LSHIFT(LCTRL(Key_Tab)),	Key_A,	Key_O,	Key_E,	Key_U,	Key_I,
-    LCTRL(Key_Tab),	Key_Semicolon,	Key_Q,	Key_J,	Key_K,	Key_X,	Key_Escape,
+    Key_Backslash,	Key_A,	Key_O,	Key_E,	Key_U,	Key_I,
+    Key_PcApplication,	Key_Semicolon,	Key_Q,	Key_J,	Key_K,	Key_X,	Key_Escape,
 
     Key_LeftGui,	Key_Backspace,	Key_LeftShift,	Key_LeftControl,
     ShiftToLayer(NAVNUM),
@@ -292,8 +292,8 @@ KEYMAPS(
     ShiftToLayer(FUNCTION),
 
     Consumer_Mute,	Consumer_VolumeIncrement,	Key_KeypadNumLock,	Key_KeypadDivide,	Key_KeypadMultiply,	Key_KeypadSubtract,	___,
-    Key_KeypadEnter,	Consumer_VolumeDecrement,	Key_Keypad7,	Key_Keypad8,	Key_Keypad9,	Key_KeypadAdd,	Key_Backslash,
-    	Key_LeftParen,	Key_Keypad4,	Key_Keypad5,	Key_Keypad6,	Key_RightParen,	Key_Pipe,
+    Key_KeypadEnter,	Consumer_VolumeDecrement,	Key_Keypad7,	Key_Keypad8,	Key_Keypad9,	Key_KeypadAdd,	XXX,
+    	Key_LeftParen,	Key_Keypad4,	Key_Keypad5,	Key_Keypad6,	Key_RightParen,	XXX,
     ___,	Key_LeftCurlyBracket,	Key_Keypad1,	Key_Keypad2,	Key_Keypad3,	Key_RightCurlyBracket,	Key_CapsLock,
 
     ___,	Key_KeypadDot,	Key_Keypad0,	___,

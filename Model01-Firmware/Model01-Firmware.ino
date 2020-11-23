@@ -578,7 +578,7 @@ FC_START_COLOR_LIST(MyColorMapOverrides)
 
 FC_END_COLOR_LIST
 
-FunctionalColor my_functional_color_map(FC_COLOR_LIST(MyColorMapOverrides), 100);
+FunctionalColor my_functional_color_map(FC_COLOR_LIST(MyColorMapOverrides), 100, false);
 
 //   Initialize Plugin System
 //  --------------------------

@@ -65,6 +65,10 @@
 #include <Kaleidoscope-LEDEffect-Rainbow.h>
 #include <Kaleidoscope-LEDEffect-SolidColor.h>
 
+// I really really hate Arduino. I can't wait to de-Arduino this whole thing.
+// (I couldn't make this plugin into a git submodule no matter what I tried.)
+#include <Kaleidoscope-LEDEffect-FunctionalColor.h>
+
 //     Augmented Functionality
 //    -------------------------
 
@@ -235,6 +239,9 @@ enum Layers
   FUNCTION
 };
 
+#define Key_LeftAngleBracket LSHIFT(Key_Comma)
+#define Key_RightAngleBracket LSHIFT(Key_Period)
+
 KEYMAPS(
   // note: When editing the keymap, change tabstop to 30 (or use smart tabstops).
   // easy-grab vim commands (yi`:<c-r>"<cr>): `set ts=30` `set ts=2`
@@ -283,10 +290,10 @@ KEYMAPS(
 
 
   [NAVNUM] = KEYMAP_STACKED(
-    XXX,	___              ,	___          ,	___        ,	___           ,	___,	Key_LEDEffectPrevious,
-    ___,	___              ,	Key_Home     ,	Key_UpArrow,	Key_PageUp    ,	___,	___,
-    ___,	Key_LeftBracket  ,	Key_LeftArrow,	Key_Delete ,	Key_RightArrow,	Key_RightBracket,
-    ___,	LSHIFT(Key_Comma),	Key_End      ,	Key_DnArrow,	Key_PageDown  ,	LSHIFT(Key_Period),	___,
+    XXX,	___                 ,	___          ,	___        ,	___           ,	___                  ,	Key_LEDEffectPrevious,
+    ___,	___                 ,	Key_Home     ,	Key_UpArrow,	Key_PageUp    ,	___                  ,	___,
+    ___,	Key_LeftBracket     ,	Key_LeftArrow,	Key_Delete ,	Key_RightArrow,	Key_RightBracket     ,
+    ___,	Key_LeftAngleBracket,	Key_End      ,	Key_DnArrow,	Key_PageDown  ,	Key_RightAngleBracket,	___,
 
     ___,	___,	___,	___,
     ShiftToLayer(FUNCTION),
@@ -440,6 +447,139 @@ USE_MAGIC_COMBOS(
   {.action = enterHardwareTestMode,  .keys={ R3C6    , R0C0 , R0C6  }}
 );
 
+//     FunctionalColor
+//    -----------------
+
+using namespace kaleidoscope::plugin::LEDFunctionalColor;
+
+/// A completely custom color map
+///
+/// \note  see https://github.com/jdlien/Kaleidoscope-LEDEffect-FunctionalColor/blob/master/examples/fc_example/fc_example.ino
+///     for guidance on bringing this up-to-date.
+///
+struct MyFunctionalColorMap : public colorMap
+{
+  // My own color constants, ensuring everything is in a consistent palette.
+  static constexpr auto myDefaultColor     = dimgray;
+  static constexpr auto myBaseColor        = lightgray;
+  static constexpr auto subtleBaseColor1   = skyblue;
+  static constexpr auto subtleBaseColor2   = coral;
+  static constexpr auto attentionBaseColor = orangered;
+
+  static constexpr auto secondaryColor          = teal;
+  static constexpr auto attentionSecondaryColor = blue;
+
+  static constexpr auto tertiaryColor          = orange;
+  static constexpr auto attentionTertiaryColor = yellow;
+
+  // shift, control, gui, and alt can all be colored by "modifier" if nocolor is
+  // set here.
+  FC_MAP_COLOR(defaultColor, myDefaultColor)
+  FC_MAP_COLOR(baseColor   , myBaseColor)
+  FC_MAP_COLOR(shift       , nocolor)
+  FC_MAP_COLOR(control     , nocolor)
+  FC_MAP_COLOR(gui         , attentionTertiaryColor)
+  FC_MAP_COLOR(alt         , nocolor)
+  FC_MAP_COLOR(modifier    , tertiaryColor)
+
+  FC_MAP_COLOR(alpha      , myBaseColor)
+  FC_MAP_COLOR(number     , secondaryColor)
+  FC_MAP_COLOR(punctuation, tertiaryColor)
+
+  // F1-F12 and F13-F24
+  FC_MAP_COLOR(function, attentionSecondaryColor)
+
+  // Page Up, Page Down, Home, End, Insert, and Delete (if del has nocolor)
+  FC_MAP_COLOR(navigation, tertiaryColor)
+
+  // Print Screen, Pause/Break, and Scroll Lock keys (brightness on Macs)
+  FC_MAP_COLOR(system, tertiaryColor)
+
+  FC_MAP_COLOR(arrow , secondaryColor)
+  FC_MAP_COLOR(keypad, secondaryColor)
+
+  // Includes play/pause, next/prev, volume control, mute, etc.
+  FC_MAP_COLOR(media, tertiaryColor)
+
+  FC_MAP_COLOR(mouseWheel , nocolor)
+  FC_MAP_COLOR(mouseButton, tertiaryColor)
+  FC_MAP_COLOR(mouseWarp  , secondaryColor)
+  FC_MAP_COLOR(mouseMove  , nocolor)
+  // mouse includes the four above groups if nocolor is set for those
+  FC_MAP_COLOR(mouse    , myBaseColor)
+  FC_MAP_COLOR(space    , myBaseColor)
+  FC_MAP_COLOR(tab      , tertiaryColor)
+  FC_MAP_COLOR(enter    , tertiaryColor)
+  FC_MAP_COLOR(backspace, attentionTertiaryColor)
+  FC_MAP_COLOR(escape   , attentionTertiaryColor)
+  FC_MAP_COLOR(del      , attentionTertiaryColor)
+
+  // fn will work properly if your FUNCTION layer is between layers 1-3
+  FC_MAP_COLOR(fn, myBaseColor)
+
+  // NumLock and other layer locks
+  FC_MAP_COLOR(lock         , attentionTertiaryColor)
+  FC_MAP_COLOR(LEDEffectNext, tertiaryColor)
+};
+
+
+FC_START_COLOR_LIST(MyColorMapOverrides)
+
+  // Unusual Macros
+  FC_KEYCOLOR(M(MACRO_VERSION_INFO), MyFunctionalColorMap::attentionBaseColor)
+
+  // Macros
+  //FC_GROUPKEY(M(MACRO_ANY))
+  //FC_GROUPKEY(M(MACRO_NEXT_TAB))
+  //FC_GROUPKEY(M(MACRO_PREV_TAB))
+  //FC_GROUPKEY(M(MACRO_DESKTOP_LEFT))
+  //FC_KEYCOLOR(M(MACRO_DESKTOP_RIGHT), MyFunctionalColorMap::attentionTertiaryColor)
+  FC_KEYCOLOR(M(MACRO_ANY), MyFunctionalColorMap::attentionTertiaryColor)
+  //
+  //// Layers
+  //FC_GROUPKEY(M(MACRO_MODE_DVORAK))
+  //FC_GROUPKEY(M(MACRO_MODE_GAMING))
+  //FC_GROUPKEY(M(MACRO_MODE_DF))
+  //FC_GROUPKEY(M(MACRO_MODE_EPISTORY))
+  //FC_KEYCOLOR(M(MACRO_MODE_MY_QWERTY), green)
+  //
+  //FC_KEYCOLOR(M(MACRO_MODE_QWERTY), red)
+
+  // Function switchers
+  //FC_GROUPKEY(ShiftToLayer(FUNCTION))
+  //FC_GROUPKEY(ShiftToLayer(MY_FUNCTION_LR))
+  //FC_GROUPKEY(M(MACRO_R_FUNCTION))
+  //FC_GROUPKEY(ShiftToLayer(DF_FUNCTION))
+  //FC_KEYCOLOR(ShiftToLayer(MY_FUNCTION_L), MyFunctionalColorMap::secondaryColor)
+  FC_KEYCOLOR(ShiftToLayer(FUNCTION), MyFunctionalColorMap::secondaryColor)
+
+  FC_GROUPKEY(Key_LeftAngleBracket)
+  FC_KEYCOLOR(Key_RightAngleBracket, MyFunctionalColorMap::tertiaryColor)
+
+  //FC_KEYCOLOR(LockLayer(NUMPAD), MyFunctionalColorMap::attentionBaseColor)
+  FC_KEYCOLOR(LockLayer(QWERTY), MyFunctionalColorMap::attentionBaseColor)
+
+  FC_KEYCOLOR(Key_CapsLock, MyFunctionalColorMap::attentionTertiaryColor)
+
+  #ifdef DIFFERENTIATE_LETTERS_BY_COLOR
+  // Vowels
+  FC_GROUPKEY(Key_A)
+  FC_GROUPKEY(Key_E)
+  FC_GROUPKEY(Key_I)
+  FC_GROUPKEY(Key_O)
+  FC_KEYCOLOR(Key_U, MyFunctionalColorMap::subtleBaseColor1)
+
+  // Vim directional keys
+  FC_GROUPKEY(Key_H)
+  FC_GROUPKEY(Key_J)
+  FC_GROUPKEY(Key_K)
+  FC_KEYCOLOR(Key_L, MyFunctionalColorMap::subtleBaseColor2)
+  #endif
+
+FC_END_COLOR_LIST
+
+FunctionalColor my_functional_color_map(FC_COLOR_LIST(MyColorMapOverrides), 100);
+
 //   Initialize Plugin System
 //  --------------------------
 
@@ -459,6 +599,7 @@ KALEIDOSCOPE_INIT_PLUGINS(
   LEDControl,
 
   LEDOff, // Should be first!
+  my_functional_color_map,
   LEDPaletteTheme, ColormapEffect,
   WavepoolEffect, LEDRainbowWaveEffect, LEDRainbowEffect, LEDBreatheEffect,
   SolidColor::red, SolidColor::green, SolidColor::indigo,
@@ -544,6 +685,7 @@ setup()
   // Must be first!
   Kaleidoscope.setup();
 
+  FC_SET_THEME(my_functional_color_map, MyFunctionalColorMap);
   setupWavepoolEffect(); // Should be setup earlier than most!
   setupLEDRainbow();
   setupLEDBreathe();

@@ -632,6 +632,12 @@ namespace Hue {
 }
 
 void inline
+setupFunctionalColor()
+{
+  FC_SET_THEME(my_functional_color_map, MyFunctionalColorMap);
+}
+
+void inline
 setupWavepoolEffect()
 {
   // Default: 5'000 milliseconds (0 is off)
@@ -676,8 +682,10 @@ setup()
   // Must be first!
   Kaleidoscope.setup();
 
-  FC_SET_THEME(my_functional_color_map, MyFunctionalColorMap);
-  setupWavepoolEffect(); // Should be setup earlier than most!
+  // Should be setup earlier than most (so it captures keypresses correctly)!
+  setupWavepoolEffect();
+
+  setupFunctionalColor();
   setupLEDRainbow();
   setupLEDBreathe();
 

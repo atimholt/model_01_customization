@@ -36,9 +36,6 @@
 //     Core Functionality
 //    --------------------
 
-#include <Kaleidoscope-EEPROM-Settings.h>
-#include <Kaleidoscope-EEPROM-Keymap.h>
-#include <Kaleidoscope-FocusSerial.h>
 #include <Kaleidoscope-HardwareTestMode.h>
 #include <Kaleidoscope-Macros.h>
 
@@ -59,7 +56,6 @@
 //     Lighting
 //    ----------
 
-#include <Kaleidoscope-Colormap.h>
 #include <Kaleidoscope-LED-Wavepool.h> // Now comes BUNDLED!! :D
 #include <Kaleidoscope-LEDEffect-Breathe.h>
 #include <Kaleidoscope-LEDEffect-Rainbow.h>
@@ -589,10 +585,6 @@ FunctionalColor my_functional_color_map(FC_COLOR_LIST(MyColorMapOverrides), 100,
 /// For example, LED effects are added in the order they're listed here.
 ///
 KALEIDOSCOPE_INIT_PLUGINS(
-  EEPROMSettings, EEPROMKeymap,
-
-  // TODO: repurpose Focus (it's mostly a Chrysalis thing).
-  Focus, FocusSettingsCommand, FocusEEPROMCommand,
   HardwareTestMode,
   BootGreetingEffect,
 
@@ -600,7 +592,6 @@ KALEIDOSCOPE_INIT_PLUGINS(
 
   LEDOff, // Should be first!
   my_functional_color_map,
-  LEDPaletteTheme, ColormapEffect,
   WavepoolEffect, LEDRainbowWaveEffect, LEDRainbowEffect, LEDBreatheEffect,
   SolidColor::red, SolidColor::green, SolidColor::indigo,
 
@@ -691,13 +682,6 @@ setup()
   setupLEDBreathe();
 
   setupBoringCorePlugins();
-
-  /// \TODO  Remove EEPROMKeymap.
-  EEPROMKeymap.setup(5);
-
-  // Should probably match the number of layers.
-  // Leaving it on default (5) for now because of Colormap (will fix later).
-  ColormapEffect.max_layers(5);
 }
 
 /// \note For Kaleidoscope-based keyboard firmware, you usually just want to
